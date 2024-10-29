@@ -1,0 +1,124 @@
+body.landingPre {
+  background: url("/src/assets/bg-deutschcup.jpg") center left no-repeat #000000!important;
+  background-size: cover;
+
+  .landingWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .landingBox {
+    background-color: rgba(0, 0, 0, .86);
+    border-radius: 15px;
+    padding: 22px 20px 22px 20px;
+    width: 80%;
+    margin: 20px 0 10px 0;
+  
+    section {
+      text-align: center;
+    }
+  
+    h2 {
+      font-weight: 300;
+      font-size: 19px;
+      color: rgb(211, 211, 211);
+      text-align: center;
+      text-transform: uppercase;
+    }
+  
+    @media screen and (max-width: 600px) {
+      h2 {
+        font-size: 15px;
+      }
+    }
+  
+    h3 {
+      font-weight: 300;
+      font-size: 17px;
+      color: #fff;
+      text-align: center;
+      text-transform: uppercase;
+    }
+  
+    h4 {
+      font-weight: 300;
+      font-size: 16px;
+      color: #c7c7c7;
+      text-align: center;
+      text-transform: uppercase;
+    }
+  
+    h5 {
+      font-weight: 300;
+      font-size: 14px;
+      color: #c7c7c7;
+      text-align: center;
+      text-transform: uppercase;
+    }
+  
+    .whatsapp {
+      color: #33ff00;
+    }
+  
+    .footer {
+      font-weight: 300;
+      font-size: 13px;
+      text-align: center;
+      color: #fff;
+      opacity: 0.4;
+      text-transform: uppercase;
+      margin: 18px 0 0 0;
+    }
+  
+    form {
+      display: flex;
+      flex-direction: row; 
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+  
+      input {
+        width: auto;
+        padding: 4px 8px;
+        background: rgb(31, 32, 35);
+        border: 1px solid rgb(60, 63, 68);
+        border-radius: 4px;
+        margin: 8px 8px 8px 8px;
+        font-size: 15px;
+        font-weight: 200;
+        color: rgb(247, 248, 248);
+        height: 36px;
+        appearance: none;
+        transition: border 0.15s ease 0s;
+        :focus{
+            outline: none;
+            box-shadow: none;
+            border-color: rgb(100, 153, 255);
+        }
+      }
+  
+      input::placeholder {
+        font-size: 15px;
+        font-weight: 200!important;
+        color: rgb(176, 176, 176);
+      }
+  
+      input[type=text],input[type=email],input[type=tel]:focus {
+        background: rgb(31, 32, 35);
+        color: rgb(247, 248, 248);
+      }
+    }
+    
+    #result{
+      font-weight: 300;
+      text-align: center;
+      text-transform: uppercase;
+  
+      .bg-success, .bg-danger {
+        font-weight: 300!important;
+      }
+    }
+  }
+}

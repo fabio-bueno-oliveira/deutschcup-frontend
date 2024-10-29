@@ -1,0 +1,66 @@
+body.landingFull {
+
+  .navbar {
+    background-color: #131518!important;
+    padding: 20px 0 20px 0;
+
+    img {
+      height: 40px;
+    }
+  }
+
+  #hero-1 {
+    background-color: #ededed;
+
+    .container {
+      background-image: url("/src/assets/p911-gt3-side.avif");
+      background-repeat: no-repeat;
+      background-position: center right; 
+      background-size: 35%;
+      margin-top: 70px;
+      padding-top: 38px;
+      padding-bottom: 30px;
+      height: 238px;
+    }
+  }
+
+  #hero-2 {
+    background: right 60% no-repeat #131518;
+    background-image: -webkit-linear-gradient(rgba(0,0,0, 0.7) 5%,rgba(0,0,0, 1) 95%), url("/src/assets/bg-deutschcup.jpg");
+    background-size: cover;
+    height: auto;
+    padding: 10px 0 20px 0;
+    color: #FFF;
+
+    table, tr, th, td {
+      background-color: transparent;
+      opacity: 0.55;
+    }
+  }
+
+  #hero-3 {
+    background-size: 40%;
+    padding-top: 30px;
+    padding-bottom: 10px;
+    height: auto;
+  }
+
+  #hero-cards {
+    .container {
+      width: 60%;
+      @media screen and (max-width: 600px) {
+        width: 100%;
+      }
+    }
+    background-color: #ededed;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    height: auto;
+  }
+
+  footer {
+    font-size: 12px;
+    text-align: center;
+    padding-top: 20px;
+  }
+}

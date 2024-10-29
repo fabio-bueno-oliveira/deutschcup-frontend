@@ -1,0 +1,31 @@
+body.landingFull {
+
+  .navbar {
+    background-color: #131518!important;
+    padding: 20px 0 20px 0;
+
+    img {
+      height: 40px;
+    }
+  }
+
+  #hero-sobre {
+    // background-image: linear-gradient(rgb(234, 234, 234), rgb(255, 255, 255));
+
+    .container {
+      margin-top: 90px;
+      padding-top: 38px;
+      padding-bottom: 30px;
+      height: 70%;
+    }
+  }
+
+  footer.onFooter {
+    position:absolute;
+    left:0;
+    bottom:0;
+    right:0;
+    font-size: 12px;
+    text-align: center;
+  }
+}
