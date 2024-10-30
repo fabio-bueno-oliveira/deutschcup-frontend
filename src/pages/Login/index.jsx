@@ -8,7 +8,6 @@ import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 import Form from 'react-bootstrap/Form';
@@ -65,18 +64,7 @@ function LoginPage () {
             <Nav className="me-auto">
               <Nav.Link href="/sobre">Sobre o evento</Nav.Link>
               <Nav.Link href="/inscricao">Inscrição</Nav.Link>
-              <NavDropdown title="Minha Conta" id="basic-nav-dropdown">
-                {!loggedIn && 
-                  <NavDropdown.Item href="/login">Login</NavDropdown.Item>
-                }
-                {loggedIn && 
-                  <>
-                    <NavDropdown.Item href="/conta">Meus dados</NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item href="/">Sair</NavDropdown.Item>
-                  </>
-                }
-              </NavDropdown>
+              <Nav.Link href="/login" active>Login</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>

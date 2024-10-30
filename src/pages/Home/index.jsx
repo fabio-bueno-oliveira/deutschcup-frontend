@@ -60,6 +60,7 @@ function Home () {
                     responsive
                     bordered
                     hover
+                    striped
                     variant="light"
                     size="sm"
                     style={{ fontSize: "14px", overflow: "scroll", marginBottom: "50px" }}

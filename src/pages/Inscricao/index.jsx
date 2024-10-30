@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { userActions } from '../../store/actions/authentication';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -17,12 +18,17 @@ function InscricaoPage () {
 
   const loggedIn = useSelector(state => state.authentication.loggedIn);
   const addBodyClass = (className) => document.body.classList.add(className);
+  const dispatch = useDispatch();
 
   useEffect(
     () => {
       addBodyClass('landingFull')
     }, []
   );
+
+  const logout = () => {
+    dispatch(userActions.logout());
+  }
 
   const [validated, setValidated] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -109,18 +115,16 @@ function InscricaoPage () {
             <Nav className="me-auto">
               <Nav.Link href="/sobre">Sobre o evento</Nav.Link>
               <Nav.Link href="/inscricao" active>Inscrição</Nav.Link>
-              <NavDropdown title="Minha Conta" id="basic-nav-dropdown">
-                {!loggedIn && 
-                  <NavDropdown.Item href="/login">Login</NavDropdown.Item>
-                }
-                {loggedIn && 
-                  <>
-                    <NavDropdown.Item href="/conta">Meus dados</NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item href="/">Sair</NavDropdown.Item>
-                  </>
-                }
-              </NavDropdown>
+              {!loggedIn && 
+                <Nav.Link href="/login">Login</Nav.Link>
+              }
+              {loggedIn && 
+                <NavDropdown title="Minha Conta" id="basic-nav-dropdown">
+                  <NavDropdown.Item href="/home">Painel</NavDropdown.Item>
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item onClick={() => logout()}>Sair</NavDropdown.Item>
+                </NavDropdown>
+              }
             </Nav>
           </Navbar.Collapse>
         </Container>
