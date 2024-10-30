@@ -57,10 +57,11 @@ function Home () {
               <>
                 <div>
                   <Table
+                    responsive
                     bordered
                     hover
                     variant="light"
-                    // style={{ maxHeight: "70vh", overflow: "scroll" }}
+                    size="sm"
                     style={{ fontSize: "14px", overflow: "scroll", marginBottom: "50px" }}
                   >
                     <thead>
