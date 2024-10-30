@@ -30,12 +30,17 @@ function Home () {
     <>
       <Navbar className="bg-body-tertiary">
         <Container fluid>
-          <Navbar.Brand href="/home">Deutsch Cup 2024</Navbar.Brand>
+          <Navbar.Brand href="/home">DS Cup 2024</Navbar.Brand>
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
             <Navbar.Text>
-              Logado como {loggedUser.nome}
-              <Button variant="secondary" size="sm" style={{ marginLeft: '10px'}} onClick={() => logout()}>
+              {loggedUser.nome}
+              <Button 
+                variant="secondary" 
+                size="sm" 
+                style={{ marginLeft: '10px'}} 
+                onClick={() => logout()}
+              >
                 Sair
               </Button>
             </Navbar.Text>
@@ -45,7 +50,7 @@ function Home () {
       <Container fluid>
         <Row>
           <Col>
-            <h4 className="my-4">Inscritos ({inscricoes?.list.length})</h4>
+            <h4 className="my-4">Inscritos {inscricoes.success && `(${inscricoes?.list.length})`}</h4>
             {inscricoes.requesting ? (
               <p>Carregando...</p>
             ) : (
@@ -60,6 +65,7 @@ function Home () {
                   >
                     <thead>
                       <tr>
+                        <th>#</th>
                         <th>ID Inscrição</th>
                         <th>Data Inscrição</th>
                         <th>Nome</th>
@@ -77,6 +83,7 @@ function Home () {
                     <tbody>
                       {inscricoes?.list.map((inscrito, key) => (
                         <tr key={key}>
+                          <td style={{color: 'gray'}}>{key + 1}</td>
                           <td>{inscrito.id}</td>
                           <td>{inscrito.createdAt}</td>
                           <td>{inscrito.nome} {inscrito.sobrenome}</td>
