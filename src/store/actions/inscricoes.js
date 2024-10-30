@@ -5,7 +5,7 @@ import { createBrowserHistory } from 'history';
 
 export const history = createBrowserHistory();
 
-export const userInfos = {
+export const inscricoesInfos = {
   getInscricoes: getInscricoes,
   getPreInscricoes: getPreInscricoes,
 };
@@ -16,13 +16,13 @@ function getInscricoes() {
 
     inscricoesService.getInscricoes()
       .then(
-        info => dispatch(success(info)),
+        list => dispatch(success(list)),
         error => dispatch(failure(error.toString()))
       );
   };
 
   function request() { return { type: inscricoesTypes.GET_INSCRICOES_REQUEST } }
-  function success(info) { return { type: inscricoesTypes.GET_INSCRICOES_SUCCESS, info } }
+  function success(list) { return { type: inscricoesTypes.GET_INSCRICOES_SUCCESS, list } }
   function failure(error) { return { type: inscricoesTypes.GET_INSCRICOES_FAILURE, error } }
 }
 

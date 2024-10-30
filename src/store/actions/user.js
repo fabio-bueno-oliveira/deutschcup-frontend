@@ -1,5 +1,5 @@
 import { userTypes } from '../types/users';
-import { userService } from '../../api/users';
+import { usuariosService } from '../../api/usuarios';
 import { createBrowserHistory } from 'history';
 
 export const history = createBrowserHistory();
@@ -12,7 +12,7 @@ function getInfo() {
     return dispatch => {
         dispatch(request());
 
-        userService.getInfo()
+        usuariosService.getUsuarioInfo()
             .then(
                 info => dispatch(success(info)),
                 error => dispatch(failure(error.toString()))

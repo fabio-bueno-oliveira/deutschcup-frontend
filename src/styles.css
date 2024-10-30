@@ -5,15 +5,7 @@
 
 body {
   margin: 0;
-  font-family: "Oswald", sans-serif;
+  font-family: "Outfit", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
-}
-
-body.landingPre {
-  font-family: "Oswald", sans-serif;
-}
-
-body.landingFull {
-  font-family: "Outfit", sans-serif;
 }

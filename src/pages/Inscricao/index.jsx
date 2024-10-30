@@ -97,8 +97,6 @@ function InscricaoPage () {
     }
   }
 
-  console.log(100, formData)
-
   return (
     <>
       <Navbar expand="lg" fixed="top" bg="dark" data-bs-theme="dark">
