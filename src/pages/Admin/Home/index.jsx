@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { userActions } from '../../store/actions/authentication';
-import { inscricoesInfos } from '../../store/actions/inscricoes';
+import { userActions } from '../../../store/actions/authentication';
+import { inscricoesInfos } from '../../../store/actions/inscricoes';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -30,7 +30,7 @@ function Home () {
     <>
       <Navbar className="bg-body-tertiary">
         <Container fluid>
-          <Navbar.Brand href="/home">DS Cup 2024</Navbar.Brand>
+          <Navbar.Brand href="/admin/home">DS Cup 2024</Navbar.Brand>
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
             <Navbar.Text>
@@ -80,6 +80,7 @@ function Home () {
                         <th>Possui veículo Porsche?</th>
                         <th>Já possuiu veículo Porsche?</th>
                         <th>Aceita Comunicação</th>
+                        <th></th>
                       </tr>
                     </thead>
                     <tbody>
@@ -98,6 +99,7 @@ function Home () {
                           <td>{inscrito.possui_veiculo_porsche ? <Badge bg="success">Sim</Badge> : <Badge bg="secondary">Não</Badge>}</td>
                           <td>{inscrito.ja_possuiu_veiculo_porsche ? <Badge bg="success">Sim</Badge> : <Badge bg="secondary">Não</Badge>}</td>
                           <td>{inscrito.aceita_receber_comunicacoes ? <Badge bg="success">Sim</Badge> : <Badge bg="secondary">Não</Badge>}</td>
+                          <td><a href={`/admin/inscricao/${inscrito.id}`}>Ver detalhes</a></td>
                         </tr>
                       ))}
                     </tbody>

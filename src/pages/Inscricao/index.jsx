@@ -11,6 +11,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import logoColor from '../../assets/deutsch-cup-2024-logo-color.png';
 import './styles.scss';
 
@@ -120,7 +121,7 @@ function InscricaoPage () {
               }
               {loggedIn && 
                 <NavDropdown title="Minha Conta" id="basic-nav-dropdown">
-                  <NavDropdown.Item href="/home">Painel</NavDropdown.Item>
+                  <NavDropdown.Item href="/admin/home">Painel</NavDropdown.Item>
                   <NavDropdown.Divider />
                   <NavDropdown.Item onClick={() => logout()}>Sair</NavDropdown.Item>
                 </NavDropdown>
@@ -141,118 +142,144 @@ function InscricaoPage () {
                     <Form.Select className="mb-2" id="data_evento"
                       onChange={(e) => setFormData({...formData, data_evento: e.target.options[e.target.selectedIndex].value})}
                     >
-                      <option value="2024-11-03">Deutsch Cup - 03/11/2024 - São Paulo/SP</option>
+                      <option value="2024-11-03">Deutsch Cup | Novembro 2024 | São Paulo/SP</option>
                     </Form.Select>
                     <Row className="mb-2">
                       <Form.Group as={Col} controlId="nome">
-                        <Form.Label>Nome</Form.Label>
-                        <Form.Control 
-                          type="text" placeholder="Insira seu nome"
-                          value={formData.nome}
-                          onChange={(e) => setFormData({...formData, nome: e.target.value})} 
-                          required
-                        />
+                        <FloatingLabel
+                          label="Nome"
+                          className="mb-3"
+                        >
+                          <Form.Control 
+                            type="text" placeholder="Insira seu nome"
+                            value={formData.nome}
+                            onChange={(e) => setFormData({...formData, nome: e.target.value})} 
+                            required
+                          />
+                        </FloatingLabel>
                         <Form.Control.Feedback type="invalid">
-                          Informa seu nome
+                          Informe seu nome
                         </Form.Control.Feedback>
                       </Form.Group>
                       <Form.Group as={Col} controlId="sobrenome">
-                        <Form.Label>Sobrenome</Form.Label>
-                        <Form.Control 
-                          type="text" placeholder="Insira seu sobrenome" 
-                          value={formData.sobrenome}
-                          onChange={(e) => setFormData({...formData, sobrenome: e.target.value})} 
-                          required
-                        />
+                        <FloatingLabel
+                          label="Sobrenome"
+                          className="mb-3"
+                        >
+                          <Form.Control 
+                            type="text" placeholder="Insira seu sobrenome" 
+                            value={formData.sobrenome}
+                            onChange={(e) => setFormData({...formData, sobrenome: e.target.value})} 
+                            required
+                          />
+                        </FloatingLabel> 
                         <Form.Control.Feedback type="invalid">
-                          Informa seu sobrenome
+                          Informe seu sobrenome
                         </Form.Control.Feedback>
                       </Form.Group>
                     </Row>
                     <Row className="mb-2">
                       <Form.Group as={Col} controlId="email">
-                        <Form.Label>E-mail</Form.Label>
-                        <Form.Control 
-                          type="email" placeholder="Insira seu e-mail"
-                          value={formData.email}
-                          onChange={(e) => setFormData({...formData, email: e.target.value})} 
-                          required
-                        />
+                        <FloatingLabel
+                          label="E-mail"
+                          className="mb-3"
+                        >
+                          <Form.Control 
+                            type="email" placeholder="Insira seu e-mail"
+                            value={formData.email}
+                            onChange={(e) => setFormData({...formData, email: e.target.value})} 
+                            required
+                          />
+                        </FloatingLabel>
                         <Form.Control.Feedback type="invalid">
-                          Informa seu email
+                          Informe seu email
                         </Form.Control.Feedback>
                       </Form.Group>
                       <Form.Group as={Col} controlId="whatsapp">
-                        <Form.Label>Whatsapp</Form.Label>
-                        <Form.Control 
-                          type="tel" placeholder="Insira seu número de celular" 
-                          value={formData.whatsapp}
-                          onChange={(e) => setFormData({...formData, whatsapp: e.target.value})} 
-                          maxLength={15} 
-                          required
-                        />
+                        <FloatingLabel
+                          label="Whatsapp"
+                          className="mb-3"
+                        >
+                          <Form.Control 
+                            type="tel" placeholder="Insira seu número de celular" 
+                            value={formData.whatsapp}
+                            onChange={(e) => setFormData({...formData, whatsapp: e.target.value})} 
+                            maxLength={15} 
+                            required
+                          />
+                        </FloatingLabel>
                         <Form.Control.Feedback type="invalid">
-                          Informa seu telefone com Whatsapp
+                          Informe seu telefone com Whatsapp
                         </Form.Control.Feedback>
                       </Form.Group>
                     </Row>
                     <Row className="mb-2">
                       <Form.Group as={Col} controlId="endereco_estado">
-                        <Form.Label>Estado</Form.Label>
-                        <Form.Select 
-                          onChange={(e) => setFormData({...formData, endereco_estado: e.target.options[e.target.selectedIndex].value})}
-                          required
-                        >
-                          <option value="">Informe o Estado</option>
-                          {/* {estados.map((estado, key) => (
-                            <option key={key} value={estado.id}>{estado.nome}</option>
-                          ))} */}
-                          <option value="415">Acre</option><option value="422">Alagoas</option><option value="406">Amapa</option><option value="407">Amazonas</option><option value="402">Bahia</option><option value="409">Ceara</option><option value="424">Distrito Federal</option><option value="401">Espirito Santo</option><option value="411">Goias</option><option value="419">Maranhao</option><option value="418">Mato Grosso</option><option value="399">Mato Grosso do Sul</option><option value="404">Minas Gerais</option><option value="408">Para</option><option value="405">Paraiba</option><option value="413">Parana</option><option value="417">Pernambuco</option><option value="416">Piaui</option><option value="410">Rio de Janeiro</option><option value="414">Rio Grande do Norte</option><option value="400">Rio Grande do Sul</option><option value="403">Rondonia</option><option value="421">Roraima</option><option value="398">Santa Catarina</option><option value="412">Sao Paulo</option><option value="423">Sergipe</option><option value="420">Tocantins</option>
-                        </Form.Select>
+                        <FloatingLabel label="Estado">
+                          <Form.Select 
+                            onChange={(e) => setFormData({...formData, endereco_estado: e.target.options[e.target.selectedIndex].value})}
+                            required
+                          >
+                            <option value="">Informe o Estado</option>
+                            {/* {estados.map((estado, key) => (
+                              <option key={key} value={estado.id}>{estado.nome}</option>
+                            ))} */}
+                            <option value="415">Acre</option><option value="422">Alagoas</option><option value="406">Amapa</option><option value="407">Amazonas</option><option value="402">Bahia</option><option value="409">Ceara</option><option value="424">Distrito Federal</option><option value="401">Espirito Santo</option><option value="411">Goias</option><option value="419">Maranhao</option><option value="418">Mato Grosso</option><option value="399">Mato Grosso do Sul</option><option value="404">Minas Gerais</option><option value="408">Para</option><option value="405">Paraiba</option><option value="413">Parana</option><option value="417">Pernambuco</option><option value="416">Piaui</option><option value="410">Rio de Janeiro</option><option value="414">Rio Grande do Norte</option><option value="400">Rio Grande do Sul</option><option value="403">Rondonia</option><option value="421">Roraima</option><option value="398">Santa Catarina</option><option value="412">Sao Paulo</option><option value="423">Sergipe</option><option value="420">Tocantins</option>
+                          </Form.Select>
+                        </FloatingLabel>
                         <Form.Control.Feedback type="invalid">
-                          Informa o seu Estado
+                          Informe o seu Estado
                         </Form.Control.Feedback>
                       </Form.Group>
                       <Form.Group as={Col} controlId="endereco_cidade">
-                        <Form.Label>Cidade</Form.Label>
-                        <Form.Control 
-                          type="text" placeholder="Informe sua Cidade"
-                          value={formData.cidade}
-                          onChange={(e) => setFormData({...formData, endereco_cidade: e.target.value})} 
-                          required
-                        />
+                        <FloatingLabel
+                          label="Cidade"
+                          className="mb-3"
+                        >
+                          <Form.Control 
+                            type="text" placeholder="Informe sua Cidade"
+                            value={formData.cidade}
+                            onChange={(e) => setFormData({...formData, endereco_cidade: e.target.value})} 
+                            required
+                          />
+                        </FloatingLabel>
                         <Form.Control.Feedback type="invalid">
-                          Informa sua Cidade
+                          Informe sua Cidade
                         </Form.Control.Feedback>
                       </Form.Group>
                     </Row>
                     <Row>
                       <Form.Group as={Col} controlId="genero">
-                        <Form.Label>Gênero</Form.Label>
-                        <Form.Select 
-                          onChange={(e) => setFormData({...formData, genero: e.target.options[e.target.selectedIndex].value})}
-                          required
-                        >
-                          <option value="">Informe o seu gênero</option>
-                          <option value="masculino">Masculino</option>
-                          <option value="feminino">Feminino</option>
-                          <option value="prefere_nao_informar">Não informar</option>
-                        </Form.Select>
+                        <FloatingLabel label="Gênero">
+                          <Form.Select 
+                            onChange={(e) => setFormData({...formData, genero: e.target.options[e.target.selectedIndex].value})}
+                            required
+                          >
+                            <option value="">Informe o seu gênero</option>
+                            <option value="masculino">Masculino</option>
+                            <option value="feminino">Feminino</option>
+                            <option value="prefere_nao_informar">Não informar</option>
+                          </Form.Select>
+                        </FloatingLabel>
                         <Form.Control.Feedback type="invalid">
-                          Informa seu gênero
+                          Informe seu gênero
                         </Form.Control.Feedback>
                       </Form.Group>
                       <Form.Group as={Col} controlId="data_nascimento">
-                        <Form.Label>Data de nascimento</Form.Label>
-                        <Form.Control type="date" maxLength={10} 
-                          value={formData.data_nascimento}
-                          onChange={(e) => setFormData(
-                            {...formData, data_nascimento: e.target.value}
-                          )} 
-                          required 
-                        />
+                        <FloatingLabel
+                          label="Data de nascimento"
+                          className="mb-3"
+                        >
+                          <Form.Control type="date" maxLength={10} 
+                            value={formData.data_nascimento}
+                            onChange={(e) => setFormData(
+                              {...formData, data_nascimento: e.target.value}
+                            )} 
+                            required 
+                          />
+                        </FloatingLabel>
                         <Form.Control.Feedback type="invalid">
-                          Informa sua data de nascimento
+                          Informe sua data de nascimento
                         </Form.Control.Feedback>
                       </Form.Group>
                     </Row>

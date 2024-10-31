@@ -8,6 +8,7 @@ export const history = createBrowserHistory();
 export const inscricoesInfos = {
   getInscricoes: getInscricoes,
   getPreInscricoes: getPreInscricoes,
+  getInscricaoDetalhe: getInscricaoDetalhe
 };
 
 function getInscricoes() {
@@ -40,4 +41,20 @@ function getPreInscricoes() {
   function request() { return { type: preinscricoesTypes.GET_PREINSCRICOES_REQUEST } }
   function success(info) { return { type: preinscricoesTypes.GET_PREINSCRICOES_SUCCESS, info } }
   function failure(error) { return { type: preinscricoesTypes.GET_PREINSCRICOES_FAILURE, error } }
+}
+
+function getInscricaoDetalhe(idInscricao) {
+  return dispatch => {
+    dispatch(request(idInscricao));
+
+    inscricoesService.getInscricaoDetalhe(idInscricao)
+      .then(
+        info => dispatch(success(info)),
+        error => dispatch(failure(idInscricao, error.toString()))
+      );
+    };
+
+  function request(idInscricao) { return { type: inscricoesTypes.GET_INSCRICAO_REQUEST, idInscricao } }
+  function success(info) { return { type: inscricoesTypes.GET_INSCRICAO_SUCCESS, info } }
+  function failure(error) { return { type: inscricoesTypes.GET_INSCRICAO_FAILURE, error } }
 }

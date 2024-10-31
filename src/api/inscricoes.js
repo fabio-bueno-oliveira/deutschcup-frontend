@@ -16,6 +16,7 @@ export function authHeader() {
 export const inscricoesService = {
   getInscricoes,
   getPreInscricoes,
+  getInscricaoDetalhe,
   logout
 };
 
@@ -33,6 +34,14 @@ function getPreInscricoes() {
     headers: authHeader()
   };
   return fetch(`${BASE_URL}/preinscricoes`, requestOptions).then(handleResponse);
+}
+
+function getInscricaoDetalhe(inscricaoId) {
+  const requestOptions = {
+    method: 'GET',
+    headers: authHeader()
+  };
+  return fetch(`${BASE_URL}/inscricao/${inscricaoId}`, requestOptions).then(handleResponse);
 }
 
 function logout() {

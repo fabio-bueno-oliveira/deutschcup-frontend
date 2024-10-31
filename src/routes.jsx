@@ -8,13 +8,13 @@ import {
 } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import NotFound from './pages/NotFound';
-import LandingPage from './pages/LandingPage';
-import LandingPageFull from './pages/LandingPageFull';
+import LandingPage from './pages/LandingPageFull';
 import Sobre from './pages/Sobre';
 import Inscricao from './pages/Inscricao';
 import LoginPage from './pages/Login';
-import MinhaConta from './pages/MinhaConta';
-import Home from './pages/Home';
+import MinhaConta from './pages/Admin/MinhaConta';
+import Home from './pages/Admin/Home';
+import InscricaoDetalhe from './pages/Admin/InscricaoDetalhe';
 
 function AppRoutes () {
 
@@ -33,14 +33,14 @@ function AppRoutes () {
     return(
       <BrowserRouter>
         <Routes>
-          <Route path="/landingOld" element={<LandingPage />} />
-          <Route path="/" element={<LandingPageFull />} />
+          <Route path="/" element={<LandingPage />} />
           <Route path="/sobre" element={<Sobre />} />
           <Route path="/inscricao" element={<Inscricao />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/conta" element={<MinhaConta />} />
           <Route element={<RequireAuth />}>
-            <Route path="/home" element={<Home />} />
+            <Route path="/admin/home" element={<Home />} />
+            <Route path="/admin/minha-conta" element={<MinhaConta />} />
+            <Route path="/admin/inscricao/:inscricaoId" element={<InscricaoDetalhe />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

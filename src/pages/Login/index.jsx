@@ -52,7 +52,7 @@ function LoginPage () {
   return (
     <>
       {loggedIn &&  
-        navigate('/home')
+        navigate('/admin/home')
       }
       <Navbar expand="lg" fixed="top" bg="dark" data-bs-theme="dark">
         <Container>

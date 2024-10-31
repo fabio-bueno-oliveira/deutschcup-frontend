@@ -47,7 +47,7 @@ function LandingPage () {
               }
               {loggedIn && 
                 <NavDropdown title="Minha Conta" id="basic-nav-dropdown">
-                  <NavDropdown.Item href="/home">Painel</NavDropdown.Item>
+                  <NavDropdown.Item href="/admin/home">Painel</NavDropdown.Item>
                   <NavDropdown.Divider />
                   <NavDropdown.Item onClick={() => logout()}>Sair</NavDropdown.Item>
                 </NavDropdown>
@@ -64,6 +64,9 @@ function LandingPage () {
               <p>O maior evento de corrida virtual de <nobr>Porsche GT3</nobr> em um simulador profissional</p>
               <Button variant="secondary" size="sm" href="/sobre">
                 Saber mais
+              </Button>
+              <Button variant="dark" size="sm" href="/inscricao" className="ms-2">
+                Me inscrever
               </Button>
             </Col>
             <Col xs={4} lg={6}></Col>
@@ -124,7 +127,7 @@ function LandingPage () {
       </Container>
       <Container id='hero-3'>
         <h5>Evento promovido pela Deutsch Sport Cars</h5>
-        <p>Especialistas em Veículos Porsche Seminovos, a Deutsch Sport Cars está localizada em um tradicional endereço de comércio de veículos importados premium da capital paulista. Venha conhecer o nosso showroom de mais de 300m² com automóveis Porsche e multimarcas selecionados.</p>
+        <p>Para saber mais sobre a Deutsch Sport Cars, <a target="_blank" href="http://www.dscars.com.br">clique aqui</a></p>
       </Container>
       {/* <Container fluid id='hero-cards'>
         <Container>
