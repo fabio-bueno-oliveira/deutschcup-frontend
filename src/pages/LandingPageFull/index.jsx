@@ -58,9 +58,9 @@ function LandingPage () {
       </Navbar>
       <Container fluid id='hero-1'>
         <Container>
+          <h5 className='mt-3 mt-sm-4'>Uma oportunidade única!</h5>
           <Row>
-            <Col xs={8} lg={6} className='mt-sm-4'>
-              <h5>Uma oportunidade única!</h5>
+            <Col xs={8} lg={6}>
               <p>O maior evento de corrida virtual de <nobr>Porsche GT3</nobr> em um simulador profissional</p>
               <Button variant="secondary" size="sm" href="/sobre">
                 Saber mais

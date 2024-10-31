@@ -13,17 +13,17 @@ body.landingFull {
     background-color: #ededed;
 
     .container {
-      background-image: url("/src/assets/gt3-rs-dscars.png");
+      background-image: url("/src/assets/992-gt3-rs-porsche-dscars-deutschcup.png");
       background-repeat: no-repeat;
       background-position: center right; 
-      background-size: 28%;
+      background-size: 45%;
       margin-top: 70px;
       padding-top: 38px;
       padding-bottom: 30px;
       height: 238px;
 
       @media screen and (max-width: 600px) {
-        background-size: 32%;
+        background-size: 39%;
       }
     }
   }
