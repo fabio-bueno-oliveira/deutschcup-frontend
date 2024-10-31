@@ -61,7 +61,7 @@ function LandingPage () {
           <h5 className='mt-3 mt-sm-4'>Uma oportunidade única!</h5>
           <Row>
             <Col xs={8} lg={6}>
-              <p>O maior evento de corrida virtual de <nobr>Porsche GT3</nobr> em um simulador profissional</p>
+              <p>O maior evento de corrida virtual de <nobr>Porsche GT3</nobr> em <nobr>um simulador profissional</nobr></p>
               <Button variant="secondary" size="sm" href="/sobre">
                 Saber mais
               </Button>
@@ -77,8 +77,8 @@ function LandingPage () {
         <Container>
           <Row>
             <Col className='mt-sm-3'>
-              <h3 className='mt-4 mt-sm-2'>Ranking Deutsch Cup 2024</h3>
-              <p>O próximo evento ocorrerá em 03/11/2024 e o ranking será divulgado abaixo</p>
+              <h3 className='mt-4 mt-sm-2'>Ranking Deutsch Cup</h3>
+              <p>O próximo evento ocorrerá em Novembro de 2024 e o ranking será divulgado abaixo</p>
               <Table responsive borderless bg="dark" data-bs-theme="dark" size="sm">
                 <thead>
                   <tr>
