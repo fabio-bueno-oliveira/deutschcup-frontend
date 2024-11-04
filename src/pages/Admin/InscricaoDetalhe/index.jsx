@@ -54,103 +54,107 @@ function InscricaoDetalhePage () {
       </Navbar>
       <Container className="pb-5">
         <Row>
-          <Col md={{ span: 6, offset: 3 }}>
+          <Col>
             <h4 className="my-4">Inscrição ID #{inscricaoId} - {loading ? "Carregando dados..." : `${inscricao.nome} ${inscricao.sobrenome}`}</h4>
             <Alert variant='warning'>
               Edição não disponível no momento
             </Alert>
             <Form>
-              <Form.Group className="mb-3" controlId="id">
-                <FloatingLabel
-                  controlId="floatingInput"
-                  label="ID Inscrição"
-                  className="mb-3"
-                >
+              <Row className="mb-2">
+                <Form.Group as={Col} controlId="id">
+                  <Form.Label>ID Inscrição</Form.Label>
                   <Form.Control 
-                    type="text" placeholder="ID da Inscrição"
-                    disabled 
+                    type="text"
                     value={inscricao.id} 
+                    readOnly
+                    disabled
                   />
-                </FloatingLabel>
-              </Form.Group>
-              <Form.Group className="mb-3" controlId="nome">
-                <FloatingLabel
-                  controlId="floatingInput"
-                  label="Nome"
-                  className="mb-3"
-                >
+                </Form.Group>
+                <Form.Group as={Col} controlId="createdAt">
+                  <Form.Label>Inscrição enviada em</Form.Label>
                   <Form.Control 
-                    type="text" placeholder="Nome do Inscrito"
-                    disabled 
+                    type="text"
+                    value={inscricao.createdAt}
+                    disabled
+                  />
+                </Form.Group>
+              </Row>
+              <Row className="mb-2">
+                <Form.Group as={Col} controlId="nome">
+                  <Form.Label>Nome</Form.Label>
+                  <Form.Control 
+                    type="text"
                     value={inscricao.nome} 
+                    readOnly
+                    disabled
                   />
-                </FloatingLabel>
-              </Form.Group>
-              <Form.Group className="mb-3" controlId="sobrenome">
-                <FloatingLabel
-                  controlId="floatingInput"
-                  label="Sobrenome"
-                  className="mb-3"
-                >
+                </Form.Group>
+                <Form.Group as={Col} controlId="sobrenome">
+                  <Form.Label>Sobrenome</Form.Label>
                   <Form.Control 
-                    type="text" placeholder="Nome do Inscrito"
-                    disabled 
+                    type="text"
                     value={inscricao.sobrenome} 
+                    disabled
                   />
-                </FloatingLabel>
-              </Form.Group>
-              <Form.Group className="mb-3" controlId="email">
-                <FloatingLabel
-                  controlId="floatingInput"
-                  label="E-mail"
-                  className="mb-3"
-                >
+                </Form.Group>
+              </Row>
+              <Row className="mb-2">
+                <Form.Group as={Col} controlId="apelido">
+                  <Form.Label>Apelido</Form.Label>
                   <Form.Control 
-                    type="text" placeholder="E-mail"
-                    disabled 
+                    type="text"
+                    value={inscricao.apelido} 
+                    readOnly
+                    disabled
+                  />
+                </Form.Group>
+                <Form.Group as={Col} controlId="tamanho_camiseta">
+                  <Form.Label>Tamanho camiseta</Form.Label>
+                  <Form.Control 
+                    type="text"
+                    value={inscricao.tamanho_camiseta} 
+                    disabled
+                  />
+                </Form.Group>
+              </Row>
+              <Row className="mb-2">
+                <Form.Group as={Col} controlId="email">
+                  <Form.Label>E-mail</Form.Label>
+                  <Form.Control 
+                    type="email"
                     value={inscricao.email} 
+                    readOnly
+                    disabled
                   />
-                </FloatingLabel>
-              </Form.Group>
-              <Form.Group className="mb-3" controlId="email">
-                <FloatingLabel
-                  controlId="floatingInput"
-                  label="Whatsapp"
-                  className="mb-3"
-                >
+                </Form.Group>
+                <Form.Group as={Col} controlId="whatsapp">
+                  <Form.Label>Whatsapp</Form.Label>
                   <Form.Control 
-                    type="text" placeholder="Whatsapp"
-                    disabled 
+                    type="tel"
                     value={inscricao.whatsapp} 
+                    disabled
                   />
-                </FloatingLabel>
-              </Form.Group>
-              <Form.Group className="mb-3" controlId="genero">
-                <FloatingLabel
-                  controlId="floatingInput"
-                  label="Gênero"
-                  className="mb-3"
-                >
+                </Form.Group>
+              </Row>
+              <Row className="mb-2">
+                <Form.Group as={Col} controlId="genero">
+                  <Form.Label>Gênero</Form.Label>
                   <Form.Control 
-                    type="text" placeholder="Gênero"
-                    disabled 
+                    type="text"
                     value={inscricao.genero} 
+                    readOnly
+                    disabled
                   />
-                </FloatingLabel>
-              </Form.Group>
-              <Form.Group className="mb-3" controlId="data_nascimento">
-                <FloatingLabel
-                  controlId="floatingInput"
-                  label="Data de Nascimento"
-                  className="mb-3"
-                >
+                </Form.Group>
+                <Form.Group as={Col} controlId="data_nascimento">
+                  <Form.Label>Data de nascimento</Form.Label>
                   <Form.Control 
-                    type="date" placeholder="Data de Nascimento"
-                    disabled 
+                    type="date"
                     value={inscricao.data_nascimento} 
+                    disabled
                   />
-                </FloatingLabel>
-              </Form.Group>
+                </Form.Group>
+              </Row>
               <Form.Group className="mb-1" controlId="aceita_receber_comunicacoes">
                 <Form.Check
                   type="checkbox" 

@@ -9,6 +9,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import Badge from 'react-bootstrap/Badge';
+// import { CSVLink, CSVDownload } from "react-csv";
 
 function Home () {
 
@@ -25,6 +26,10 @@ function Home () {
   }
 
   const inscricoes = useSelector(state => state.inscricoes);
+
+  // const csvTituloColunas = [
+  //   "aceita_receber_comunicacoes", "ano_evento", "apelido", "createdAt", "data_nascimento", "email", "endereco_cidade", "endereco_estado", "endereco_pais", "etapa_evento", "genero", "id", "ja_possuiu_veiculo_porsche", "modifiedAt", "nome", "possui_veiculo_porsche", "sobrenome", "tamanho_camiseta", "whatsapp"
+  // ]
 
   return (
     <>
@@ -50,6 +55,7 @@ function Home () {
       <Container fluid>
         <Row>
           <Col>
+            {/* <CSVLink data={csvData}>Download me</CSVLink> */}
             <h4 className="my-4">Inscritos {inscricoes.success && `(${inscricoes?.list.length})`}</h4>
             {inscricoes.requesting ? (
               <p>Carregando...</p>
@@ -57,7 +63,7 @@ function Home () {
               <>
                 <div>
                   <Table
-                    responsive
+                    responsive="sm"
                     bordered
                     hover
                     striped
@@ -67,15 +73,17 @@ function Home () {
                   >
                     <thead>
                       <tr>
-                        <th>#</th>
+                        <th></th>
                         <th>ID Inscrição</th>
-                        <th>Data Inscrição</th>
                         <th>Nome</th>
+                        <th>Data envio inscrição</th>
+                        <th>Etapa</th>
+                        <th>Apelido</th>
+                        <th>Tamanho camiseta</th>
                         <th>Whatsapp</th>
                         <th>Email</th>
                         <th>Gênero</th>
                         <th>Cidade</th>
-                        <th>Estado</th>
                         <th>Data de nascimento</th>
                         <th>Possui veículo Porsche?</th>
                         <th>Já possuiu veículo Porsche?</th>
@@ -86,15 +94,17 @@ function Home () {
                     <tbody>
                       {inscricoes?.list.map((inscrito, key) => (
                         <tr key={key}>
-                          <td style={{color: 'gray'}}>{key + 1}</td>
+                          <td style={{color:'gray', cursor:'default'}}>{key + 1}</td>
                           <td>{inscrito.id}</td>
+                          <td><a href={`/admin/inscricao/${inscrito.id}`}>{inscrito.nome} {inscrito.sobrenome}</a></td>
                           <td>{inscrito.createdAt}</td>
-                          <td>{inscrito.nome} {inscrito.sobrenome}</td>
+                          <td>{inscrito.etapa_evento}</td>
+                          <td>{inscrito.apelido}</td>
+                          <td>{inscrito.tamanho_camiseta}</td>
                           <td>{inscrito.whatsapp}</td>
                           <td>{inscrito.email}</td>
                           <td style={{textTransform: 'capitalize'}}>{inscrito.genero}</td>
-                          <td>{inscrito.endereco_cidade}</td>
-                          <td>{inscrito.endereco_estado}</td>
+                          <td>{inscrito.endereco_cidade}/{inscrito.endereco_estado}</td>
                           <td>{inscrito.data_nascimento}</td>
                           <td>{inscrito.possui_veiculo_porsche ? <Badge bg="success">Sim</Badge> : <Badge bg="secondary">Não</Badge>}</td>
                           <td>{inscrito.ja_possuiu_veiculo_porsche ? <Badge bg="success">Sim</Badge> : <Badge bg="secondary">Não</Badge>}</td>
