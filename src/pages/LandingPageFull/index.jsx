@@ -77,47 +77,35 @@ function LandingPage () {
         <Container>
           <Row>
             <Col className='mt-sm-3'>
-              <h3 className='mt-4 mt-sm-2'>Ranking Deutsch Cup</h3>
-              <p>O próximo evento ocorrerá em Novembro de 2024 e o ranking será divulgado abaixo</p>
+              <h3 className='mt-4 mt-sm-2'>Ranking Período de Treinos</h3>
+              <p>Circuito: Interlagos | Carro: Porsche GT3 RS</p>
               <Table responsive borderless bg="dark" data-bs-theme="dark" size="sm">
                 <thead>
                   <tr>
                     <th>Posição</th>
-                    <th>#</th>  
-                    <th>Nome</th>
-                    <th>Nº Voltas</th>
-                    <th>Dif. P/ Ant.</th>
-                    <th>2º M Volta</th>
-                    <th>3º M Volta</th>
-                    <th>Tl Voltas</th>
-                    <th>Marca</th>
-                    <th>Modelo</th>
+                    <th>Nome do Piloto</th>
+                    <th>Apelido</th>
+                    <th>Número</th>
+                    <th>Tempo</th>
+                    <th>Data</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <td>1</td>
-                    <td>3</td>
                     <td>Piloto 1</td>
+                    <td>Apelido</td>
                     <td>31</td>
                     <td>1:29.598</td>
-                    <td>1:29.598</td>
-                    <td>2:14.636</td>
-                    <td>2:15.379</td>
-                    <td>Porsche</td>
-                    <td>GT3</td>
+                    <td>04/11/2024</td>
                   </tr>
                   <tr>
                     <td>2</td>
-                    <td>44</td>
                     <td>Piloto 2</td>
-                    <td>31</td>
-                    <td>1:32.598</td>
-                    <td>1:44.598</td>
-                    <td>2:24.636</td>
-                    <td>2:18.379</td>
-                    <td>Porsche</td>
-                    <td>GT3</td>
+                    <td>Apelido</td>
+                    <td>22</td>
+                    <td>1:32.132</td>
+                    <td>03/11/2024</td>
                   </tr>
                 </tbody>
               </Table>
