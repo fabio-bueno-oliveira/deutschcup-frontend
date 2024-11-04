@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { userActions } from '../../../store/actions/authentication';
@@ -10,7 +10,6 @@ import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 import Form from 'react-bootstrap/Form';
-import FloatingLabel from 'react-bootstrap/FloatingLabel';
 
 function InscricaoDetalhePage () {
 
@@ -30,6 +29,45 @@ function InscricaoDetalhePage () {
   const logout = () => {
     dispatch(userActions.logout());
   }
+
+  const [formData, setFormData] = useState({
+    apelido: '',
+    tamanho_camiseta: '2024'
+  });
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSuccess(false)
+    setIsLoading(true)
+    setTimeout(() => {
+      fetch('https://deutschcup-a6b22e51057c.herokuapp.com/inscricao/atualizar', {
+        method: 'PUT',
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + loggedUser.token
+        },
+        body: JSON.stringify({
+          id: inscricaoId, 
+          apelido: formData.apelido, 
+          tamanho_camiseta: formData.tamanho_camiseta
+        })
+          }).then((response) => {
+            console.log(response)
+            dispatch(inscricoesInfos.getInscricaoDetalhe(inscricaoId));
+            setIsLoading(false)
+            setSuccess(true)
+          }).catch(err => {
+            console.error(err)
+            alert("Ocorreu um erro ao atualizar a inscrição")
+            setIsLoading(false)
+            setSuccess(false)
+      })
+    }, 300);
+  ;}
 
   return (
     <>
@@ -55,26 +93,29 @@ function InscricaoDetalhePage () {
       <Container className="pb-5">
         <Row>
           <Col>
-            <h4 className="my-4">Inscrição ID #{inscricaoId} - {loading ? "Carregando dados..." : `${inscricao.nome} ${inscricao.sobrenome}`}</h4>
-            <Alert variant='warning'>
-              Edição não disponível no momento
-            </Alert>
+            <h4 className="my-4">
+              Inscrição ID #{inscricaoId} - {loading ? "Carregando dados..." : `${inscricao.nome} ${inscricao.sobrenome}`}
+            </h4>
+            {success && 
+              <Alert variant='success'>
+                Inscrição atualizada com sucesso!
+              </Alert>
+            }
             <Form>
               <Row className="mb-2">
-                <Form.Group as={Col} controlId="id">
-                  <Form.Label>ID Inscrição</Form.Label>
-                  <Form.Control 
-                    type="text"
-                    value={inscricao.id} 
-                    readOnly
-                    disabled
-                  />
-                </Form.Group>
                 <Form.Group as={Col} controlId="createdAt">
                   <Form.Label>Inscrição enviada em</Form.Label>
                   <Form.Control 
                     type="text"
                     value={inscricao.createdAt}
+                    disabled
+                  />
+                </Form.Group>
+                <Form.Group as={Col} controlId="modifiedAt">
+                  <Form.Label>Última atualização em</Form.Label>
+                  <Form.Control 
+                    type="text"
+                    value={inscricao.modifiedAt}
                     disabled
                   />
                 </Form.Group>
@@ -99,23 +140,33 @@ function InscricaoDetalhePage () {
                 </Form.Group>
               </Row>
               <Row className="mb-2">
-                <Form.Group as={Col} controlId="apelido">
+                <Col>
                   <Form.Label>Apelido</Form.Label>
                   <Form.Control 
+                    id="apelido"
                     type="text"
-                    value={inscricao.apelido} 
-                    readOnly
-                    disabled
+                    defaultValue={inscricao.apelido} 
+                    onChange={(e) => setFormData({...formData, apelido: e.target.value})}
                   />
-                </Form.Group>
-                <Form.Group as={Col} controlId="tamanho_camiseta">
+                </Col>
+                <Col>
                   <Form.Label>Tamanho camiseta</Form.Label>
-                  <Form.Control 
-                    type="text"
+                  <Form.Select 
+                    id="tamanho_camiseta"
                     value={inscricao.tamanho_camiseta} 
-                    disabled
-                  />
-                </Form.Group>
+                    onChange={(e) => setFormData({
+                      ...formData, 
+                      tamanho_camiseta: e.target.options[e.target.selectedIndex].value
+                    })}
+                  >
+                    <option value="">Escolha</option>
+                    <option value="P">P</option>
+                    <option value="M">M</option>
+                    <option value="G">G</option>
+                    <option value="GG">GG</option>
+                    <option value="XG">XG</option>
+                  </Form.Select>
+                </Col>
               </Row>
               <Row className="mb-2">
                 <Form.Group as={Col} controlId="email">
@@ -179,8 +230,13 @@ function InscricaoDetalhePage () {
                   disabled
                 />
               </Form.Group>
-              <Button variant="primary" type="submit" className="me-2" disabled>
-                Atualizar
+              <Button 
+                variant="primary" type="submit" 
+                className="me-2" 
+                disabled={isLoading}
+                onClick={(e) => handleSubmit(e)}
+              >
+                {isLoading ? 'Enviando...' : 'Atualizar'}
               </Button>
               <Button variant="primary" type="submit" href="/admin/home">
                 Voltar à lista de Inscrições

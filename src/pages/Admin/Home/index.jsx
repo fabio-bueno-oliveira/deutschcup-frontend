@@ -98,7 +98,11 @@ function Home () {
                           <td>{inscrito.id}</td>
                           <td><a href={`/admin/inscricao/${inscrito.id}`}>{inscrito.nome} {inscrito.sobrenome}</a></td>
                           <td>{inscrito.createdAt}</td>
-                          <td>{inscrito.etapa_evento}</td>
+                          <td>
+                            <Badge bg={inscrito.etapa_evento === "Fevereiro 2025" ? "danger" :  "primary"}>
+                              {inscrito.etapa_evento}
+                            </Badge>
+                          </td>
                           <td>{inscrito.apelido}</td>
                           <td>{inscrito.tamanho_camiseta}</td>
                           <td>{inscrito.whatsapp}</td>
