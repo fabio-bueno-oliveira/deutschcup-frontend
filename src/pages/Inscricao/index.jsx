@@ -38,7 +38,7 @@ function InscricaoPage () {
 
   const [formData, setFormData] = useState({
     aceita_receber_comunicacoes: '',
-    ano_evento: '2024',
+    ano_evento: '',
     etapa_evento: '',
     nome: '',
     sobrenome: '',
@@ -72,7 +72,8 @@ function InscricaoPage () {
       formData.genero && 
       formData.data_nascimento && 
       formData.email && 
-      formData.endereco_cidade 
+      formData.endereco_cidade &&
+      formData.etapa_evento 
     ) {
       setSubmitting(true);
       fetch('https://deutschcup-a6b22e51057c.herokuapp.com/inscricao', {
@@ -83,7 +84,7 @@ function InscricaoPage () {
         },
         body: JSON.stringify({
           aceita_receber_comunicacoes: formData.aceita_receber_comunicacoes,
-          ano_evento: '2024',
+          ano_evento: formData.etapa_evento === "Novembro 2024" ? '2024' : '2025',
           etapa_evento: formData.etapa_evento,
           nome: formData.nome,
           sobrenome: formData.sobrenome,
@@ -398,7 +399,7 @@ function InscricaoPage () {
                   </Row>
                   {formData.etapa_evento === "Novembro 2024" && 
                     <Alert variant='danger' className='mt-3'>
-                      Infelizmente, as inscrições para esta etapa já foram encerradas. Você pode se inscrever para a próxima etapa disponível.
+                      Infelizmente, as inscrições para esta etapa já foram encerradas. Selecione a próxima etapa disponível.
                     </Alert>
                   }
                   <Button 
