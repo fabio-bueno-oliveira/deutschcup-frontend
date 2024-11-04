@@ -38,9 +38,11 @@ function InscricaoPage () {
   const [formData, setFormData] = useState({
     aceita_receber_comunicacoes: '',
     ano_evento: '2024',
-    data_evento: '2024-11-03',
+    etapa_evento: 'Novembro 2024',
     nome: '',
     sobrenome: '',
+    apelido: '',
+    tamanho_camiseta: '',
     email: '',
     whatsapp: '',
     endereco_pais: '27',
@@ -68,7 +70,8 @@ function InscricaoPage () {
       formData.sobrenome && 
       formData.genero && 
       formData.data_nascimento && 
-      formData.email
+      formData.email && 
+      formData.endereco_cidade 
     ) {
       fetch('https://deutschcup-a6b22e51057c.herokuapp.com/inscricao', {
         method: 'POST',
@@ -79,9 +82,11 @@ function InscricaoPage () {
         body: JSON.stringify({
           aceita_receber_comunicacoes: formData.aceita_receber_comunicacoes,
           ano_evento: '2024',
-          data_evento: '2024-11-03',
+          etapa_evento: formData.etapa_evento,
           nome: formData.nome,
           sobrenome: formData.sobrenome,
+          apelido: formData.apelido,
+          tamanho_camiseta: formData.tamanho_camiseta,
           email: formData.email,
           whatsapp: formData.whatsapp,
           endereco_pais: '27',
@@ -138,12 +143,16 @@ function InscricaoPage () {
                 <h3>Inscrição</h3>
                 <h6 className='mb-4'>Inscreva-se para a Deutsch Cup</h6>
                 <Form noValidate validated={validated} onSubmit={handleSubmit}>
-                  <Form.Group className="mb-3">
-                    <Form.Select className="mb-2" id="data_evento"
-                      onChange={(e) => setFormData({...formData, data_evento: e.target.options[e.target.selectedIndex].value})}
+                    <FloatingLabel
+                      label="Etapa"
+                      className="mb-3"
                     >
-                      <option value="2024-11-03">Deutsch Cup | Novembro 2024 | São Paulo/SP</option>
-                    </Form.Select>
+                      <Form.Select className="mb-2" id="etapa_evento"
+                        onChange={(e) => setFormData({...formData, etapa_evento: e.target.options[e.target.selectedIndex].value})}
+                      >
+                        <option value="Novembro 2024">Deutsch Cup | Novembro 2024 | São Paulo/SP</option>
+                      </Form.Select>
+                    </FloatingLabel>
                     <Row className="mb-2">
                       <Form.Group as={Col} controlId="nome">
                         <FloatingLabel
@@ -175,6 +184,47 @@ function InscricaoPage () {
                         </FloatingLabel> 
                         <Form.Control.Feedback type="invalid">
                           Informe seu sobrenome
+                        </Form.Control.Feedback>
+                      </Form.Group>
+                    </Row>
+                    <Row className="mb-2">
+                      <Form.Group as={Col} controlId="apelido">
+                        <FloatingLabel
+                          label="Apelido (opcional)"
+                          className="mb-3"
+                        >
+                          <Form.Control 
+                            type="text" placeholder="Seu apelido (opcional)"
+                            value={formData.apelido}
+                            onChange={(e) => setFormData({...formData, apelido: e.target.value})} 
+                          />
+                        </FloatingLabel>
+                        <Form.Control.Feedback type="invalid">
+                          Informe seu apelido (opcional)
+                        </Form.Control.Feedback>
+                      </Form.Group>
+                      <Form.Group as={Col} controlId="tamanho_camiseta">
+                        <FloatingLabel
+                          label="Tamanho Camiseta"
+                          className="mb-3"
+                        >
+                          <Form.Select className="mb-2"
+                            onChange={(e) => setFormData({
+                              ...formData, 
+                              tamanho_camiseta: e.target.options[e.target.selectedIndex].value
+                            })}
+                            required
+                          >
+                            <option value="">Escolha</option>
+                            <option value="P">P</option>
+                            <option value="M">M</option>
+                            <option value="G">G</option>
+                            <option value="GG">GG</option>
+                            <option value="XG">XG</option>
+                          </Form.Select>
+                        </FloatingLabel> 
+                        <Form.Control.Feedback type="invalid">
+                          Informe o tamanho da camiseta
                         </Form.Control.Feedback>
                       </Form.Group>
                     </Row>
@@ -224,7 +274,33 @@ function InscricaoPage () {
                             {/* {estados.map((estado, key) => (
                               <option key={key} value={estado.id}>{estado.nome}</option>
                             ))} */}
-                            <option value="415">Acre</option><option value="422">Alagoas</option><option value="406">Amapa</option><option value="407">Amazonas</option><option value="402">Bahia</option><option value="409">Ceara</option><option value="424">Distrito Federal</option><option value="401">Espirito Santo</option><option value="411">Goias</option><option value="419">Maranhao</option><option value="418">Mato Grosso</option><option value="399">Mato Grosso do Sul</option><option value="404">Minas Gerais</option><option value="408">Para</option><option value="405">Paraiba</option><option value="413">Parana</option><option value="417">Pernambuco</option><option value="416">Piaui</option><option value="410">Rio de Janeiro</option><option value="414">Rio Grande do Norte</option><option value="400">Rio Grande do Sul</option><option value="403">Rondonia</option><option value="421">Roraima</option><option value="398">Santa Catarina</option><option value="412">Sao Paulo</option><option value="423">Sergipe</option><option value="420">Tocantins</option>
+                            <option value="415">Acre</option>
+                            <option value="422">Alagoas</option>
+                            <option value="406">Amapa</option>
+                            <option value="407">Amazonas</option>
+                            <option value="402">Bahia</option>
+                            <option value="409">Ceara</option>
+                            <option value="424">Distrito Federal</option>
+                            <option value="401">Espirito Santo</option>
+                            <option value="411">Goias</option>
+                            <option value="419">Maranhao</option>
+                            <option value="418">Mato Grosso</option>
+                            <option value="399">Mato Grosso do Sul</option>
+                            <option value="404">Minas Gerais</option>
+                            <option value="408">Para</option>
+                            <option value="405">Paraiba</option>
+                            <option value="413">Parana</option>
+                            <option value="417">Pernambuco</option>
+                            <option value="416">Piaui</option>
+                            <option value="410">Rio de Janeiro</option>
+                            <option value="414">Rio Grande do Norte</option>
+                            <option value="400">Rio Grande do Sul</option>
+                            <option value="403">Rondonia</option>
+                            <option value="421">Roraima</option>
+                            <option value="398">Santa Catarina</option>
+                            <option value="412">São Paulo</option>
+                            <option value="423">Sergipe</option>
+                            <option value="420">Tocantins</option>
                           </Form.Select>
                         </FloatingLabel>
                         <Form.Control.Feedback type="invalid">
@@ -283,7 +359,7 @@ function InscricaoPage () {
                         </Form.Control.Feedback>
                       </Form.Group>
                     </Row>
-                  </Form.Group>
+                  
                   <Row className="mb-3">
                     <Col>
                       <Form.Check
