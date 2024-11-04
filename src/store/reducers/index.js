@@ -3,6 +3,7 @@ import { authentication } from './authentication';
 import { user } from './user';
 import { preinscricoes } from './preinscricoes';
 import { inscricoes } from './inscricoes';
+import { rankings } from './ranking';
 import { localidades } from './localidades';
 
 const rootReducer = combineReducers({
@@ -10,6 +11,7 @@ const rootReducer = combineReducers({
   user,
   preinscricoes,
   inscricoes,
+  rankings,
   localidades
 });
 

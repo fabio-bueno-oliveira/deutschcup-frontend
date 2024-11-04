@@ -15,6 +15,7 @@ import LoginPage from './pages/Login';
 import MinhaConta from './pages/Admin/MinhaConta';
 import Home from './pages/Admin/Home';
 import InscricaoDetalhe from './pages/Admin/InscricaoDetalhe';
+import Ranking from './pages/Admin/Ranking';
 
 function AppRoutes () {
 
@@ -39,8 +40,9 @@ function AppRoutes () {
           <Route path="/login" element={<LoginPage />} />
           <Route element={<RequireAuth />}>
             <Route path="/admin/home" element={<Home />} />
-            <Route path="/admin/minha-conta" element={<MinhaConta />} />
             <Route path="/admin/inscricao/:inscricaoId" element={<InscricaoDetalhe />} />
+            <Route path="/admin/ranking" element={<Ranking />} />
+            <Route path="/admin/minha-conta" element={<MinhaConta />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

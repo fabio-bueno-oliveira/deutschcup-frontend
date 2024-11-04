@@ -9,6 +9,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import Badge from 'react-bootstrap/Badge';
+import Nav from 'react-bootstrap/Nav';
 // import { CSVLink, CSVDownload } from "react-csv";
 
 function Home () {
@@ -52,6 +53,18 @@ function Home () {
           </Navbar.Collapse>
         </Container>
       </Navbar>
+      <Nav
+        activeKey="/admin/home"
+        variant="tabs"
+        className="mt-3"
+      >
+        <Nav.Item>
+          <Nav.Link active disabled>Inscrições</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link href="/admin/ranking">Ranking</Nav.Link>
+        </Nav.Item>
+      </Nav>
       <Container fluid>
         <Row>
           <Col>
