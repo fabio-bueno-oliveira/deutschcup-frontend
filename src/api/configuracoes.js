@@ -13,44 +13,17 @@ export function authHeader() {
   }
 }
 
-export const inscricoesService = {
-  getInscricoes,
-  getInscritos,
-  getPreInscricoes,
-  getInscricaoDetalhe,
+export const configuracoesService = {
+  getConfiguracoes,
   logout
 };
 
-function getInscricoes() {
+function getConfiguracoes() {
   const requestOptions = {
     method: 'GET',
     headers: authHeader()
   };
-  return fetch(`${BASE_URL}/inscricoes`, requestOptions).then(handleResponse);
-}
-
-function getInscritos() {
-  const requestOptions = {
-    method: 'GET',
-    headers: authHeader()
-  };
-  return fetch(`${BASE_URL}/inscritos`, requestOptions).then(handleResponse);
-}
-
-function getPreInscricoes() {
-  const requestOptions = {
-    method: 'GET',
-    headers: authHeader()
-  };
-  return fetch(`${BASE_URL}/preinscricoes`, requestOptions).then(handleResponse);
-}
-
-function getInscricaoDetalhe(inscricaoId) {
-  const requestOptions = {
-    method: 'GET',
-    headers: authHeader()
-  };
-  return fetch(`${BASE_URL}/inscricao/${inscricaoId}`, requestOptions).then(handleResponse);
+  return fetch(`${BASE_URL}/configuracoes`, requestOptions).then(handleResponse);
 }
 
 function logout() {

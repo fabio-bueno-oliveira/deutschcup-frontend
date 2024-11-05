@@ -43,7 +43,23 @@ const initialState = {
     ja_possuiu_veiculo_porsche: '',
     ano_evento: '',
     data_evento: ''
-  }
+  },
+  inscritos: [
+    {
+      id: '',
+      nome: '',
+      sobrenome: '',
+      apelido: '',
+      tamanho_camiseta: '',
+      email: '',
+      whatsapp: '',
+      endereco_pais: '',
+      endereco_estado: '',
+      endereco_cidade: '',
+      genero: '',
+      data_nascimento: ''
+    }
+  ],
 }
 
 export function inscricoes(state = initialState, action) {
@@ -131,6 +147,44 @@ export function inscricoes(state = initialState, action) {
           ano_evento: '',
           data_evento: ''
         }
+      };
+    case inscricoesTypes.GET_INSCRITOS_REQUEST:
+      return {
+        ...state,
+        requesting: true,
+        success: false,
+        error: ''
+      };
+    case inscricoesTypes.GET_INSCRITOS_SUCCESS:
+      return {
+        ...state,
+        requesting: false,
+        success: true,
+        error: '',
+        inscritos: action.list
+      };
+    case inscricoesTypes.GET_INSCRITOS_FAILURE:
+      return {
+        ...state,
+        requesting: false,
+        success: false,
+        error: 'Erro na solicitação',
+        inscritos: [
+          {
+            id: '',
+            nome: '',
+            sobrenome: '',
+            apelido: '',
+            tamanho_camiseta: '',
+            email: '',
+            whatsapp: '',
+            endereco_pais: '',
+            endereco_estado: '',
+            endereco_cidade: '',
+            genero: '',
+            data_nascimento: ''
+          }
+        ]
       };
     default:
       return state

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { userActions } from '../../../store/actions/authentication';
 import { rankingInfos } from '../../../store/actions/ranking';
@@ -9,7 +9,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import Nav from 'react-bootstrap/Nav';
-import Alert from 'react-bootstrap/Alert';
+import { FaFlagCheckered } from "react-icons/fa";
 
 function Ranking () {
 
@@ -26,6 +26,34 @@ function Ranking () {
   }
 
   const rankings = useSelector(state => state.rankings);
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleToggle = (id, option) => {
+    setIsLoading(true)
+    setTimeout(() => {
+      fetch('https://deutschcup-a6b22e51057c.herokuapp.com/ranking/exibir', {
+        method: 'PUT',
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + loggedUser.token
+        },
+        body: JSON.stringify({
+          id: id, 
+          exibir: option
+        })
+          }).then((response) => {
+            console.log(response)
+            dispatch(rankingInfos.getRanking());
+            setIsLoading(false)
+          }).catch(err => {
+            console.error(err)
+            alert("Ocorreu um erro ao atualizar a inscrição")
+            setIsLoading(false)
+      })
+    }, 300);
+  ;}
 
   return (
     <>
@@ -63,13 +91,18 @@ function Ranking () {
       <Container fluid>
         <Row>
           <Col>
-            <h4 className="my-4">Ranking</h4>
+            <h4 className="mt-4 mb-3">Ranking</h4>
+            <Button 
+              className="mb-4" 
+              variant="primary" 
+              size="sm"
+              href="/admin/ranking/novo"
+            >
+              Registrar novo
+            </Button>
             {/* <input type="time" step="0.001"></input>
             <input id="test" type="datetime-local" step="0.001"></input> */}
-            <Alert variant='warning'>
-              Em desenvolvimento!
-            </Alert>
-            {rankings.requesting ? (
+            {rankings.requesting || isLoading ? (
               <p>Carregando...</p>
             ) : (
               <>
@@ -85,30 +118,30 @@ function Ranking () {
                   >
                     <thead>
                       <tr>
-                        <th></th>
-                        <th>ID Inscrito</th>
-                        <th>Posição</th>
+                        <th style={{textAlign:'center'}}>Posição no Ranking</th>
+                        <th>Nome</th>
+                        <th>Etapa</th>
                         <th>Número carro</th>
                         <th>Tempo</th>
-                        <th>Data</th>
-                        <th>Nome</th>
-                        <th>Sobrenome</th>
-                        <th>Apelido</th>
-                        <th></th>
+                        <th>Data da corrida</th>
+                        <th>Exibir no ranking?</th>
                       </tr>
                     </thead>
                     <tbody>
                       {rankings?.list.map((ranking, key) => (
                         <tr key={key}>
-                          <td style={{color:'gray', cursor:'default'}}>{key + 1}</td>
-                          <td>{ranking.id_inscrito}</td>
-                          <td>{ranking.posicao}</td>
+                          <td style={{color:'gray', cursor:'default', textAlign:'center'}}>{key + 1}</td>
+                          <td>{(key + 1) === 1 && <FaFlagCheckered />} {ranking.nome} {ranking.sobrenome} {`(Apelido '${ranking.apelido}')`} ({ranking.email})</td>
+                          <td>{ranking.etapa}</td>
                           <td>{ranking.numero_carro}</td>
                           <td>{ranking.tempo}</td>
-                          <td>{ranking.data}</td>
-                          <td>{ranking.nome}</td>
-                          <td>{ranking.sobrenome}</td>
-                          <td>{ranking.apelido}</td>
+                          <td>{ranking.data_formatada}</td>
+                          <td>
+                            {ranking.exibir ? 
+                              <Button variant="success" size="sm" onClick={() => handleToggle(ranking.id, 0)}>Sim</Button> 
+                              : <Button variant="danger" size="sm" onClick={() => handleToggle(ranking.id, 1)}>Não</Button> 
+                            } 
+                          </td>
                         </tr>
                       ))}
                     </tbody>

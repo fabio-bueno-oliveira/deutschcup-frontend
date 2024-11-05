@@ -408,8 +408,7 @@ function InscricaoPage () {
                     disabled={
                       (
                         submitting || 
-                        success || 
-                        formData.etapa_evento === "Novembro 2024"
+                        success
                       ) ? true 
                       : false
                     }

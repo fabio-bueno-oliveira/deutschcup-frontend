@@ -16,6 +16,7 @@ import MinhaConta from './pages/Admin/MinhaConta';
 import Home from './pages/Admin/Home';
 import InscricaoDetalhe from './pages/Admin/InscricaoDetalhe';
 import Ranking from './pages/Admin/Ranking';
+import RankingNovo from './pages/Admin/Ranking/novo';
 
 function AppRoutes () {
 
@@ -42,6 +43,7 @@ function AppRoutes () {
             <Route path="/admin/home" element={<Home />} />
             <Route path="/admin/inscricao/:inscricaoId" element={<InscricaoDetalhe />} />
             <Route path="/admin/ranking" element={<Ranking />} />
+            <Route path="/admin/ranking/novo" element={<RankingNovo />} />
             <Route path="/admin/minha-conta" element={<MinhaConta />} />
           </Route>
           <Route path="*" element={<NotFound />} />
