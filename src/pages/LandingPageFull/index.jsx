@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { userActions } from '../../store/actions/authentication';
+import { rankingInfos } from '../../store/actions/ranking';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -10,21 +11,26 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
-import Card from 'react-bootstrap/Card';
 import logoColor from '../../assets/deutsch-cup-2024-logo-color.png';
 import './styles.scss';
 
 function LandingPage () {
 
   const loggedIn = useSelector(state => state.authentication.loggedIn);
-  const addBodyClass = (className) => document.body.classList.add(className);
   const dispatch = useDispatch();
+  const addBodyClass = (className) => document.body.classList.add(className);
 
   useEffect(
     () => {
       addBodyClass('landingFull')
     }, []
   );
+
+  useEffect(() => { 
+    dispatch(rankingInfos.getRanking());
+  }, [dispatch]);
+
+  const rankings = useSelector(state => state.rankings);
 
   const logout = () => {
     dispatch(userActions.logout());
@@ -78,35 +84,37 @@ function LandingPage () {
           <Row>
             <Col className='mt-sm-3'>
               <h3 className='mt-4 mt-sm-2'>Ranking Período de Treinos</h3>
-              <p>Circuito: Interlagos | Carro: Porsche GT3 RS</p>
+              <p style={{color:'#c79393'}}>Circuito: Interlagos | Carro: Porsche GT3 RS</p>
               <Table responsive borderless bg="dark" data-bs-theme="dark" size="sm">
                 <thead>
                   <tr>
                     <th>Posição</th>
                     <th>Nome do Piloto</th>
-                    <th>Apelido</th>
-                    <th>Número</th>
+                    <th>Número do carro</th>
                     <th>Tempo</th>
-                    <th>Data</th>
+                    <th>Data corrida</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>Piloto 1</td>
-                    <td>Apelido</td>
-                    <td>31</td>
-                    <td>1:29.598</td>
-                    <td>04/11/2024</td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>Piloto 2</td>
-                    <td>Apelido</td>
-                    <td>22</td>
-                    <td>1:32.132</td>
-                    <td>03/11/2024</td>
-                  </tr>
+                  {rankings?.list.length ? (
+                    <>
+                      {rankings?.list.map((ranking, key) => (
+                        <tr key={key}>
+                          <td>{key + 1}</td>
+                          <td>{ranking.apelido}</td>
+                          <td>{ranking.numero_carro}</td>
+                          <td>{ranking.tempo}</td>
+                          <td>{ranking.data_formatada}</td>
+                        </tr>
+                      ))}
+                    </>
+                  ): (
+                    <tr>
+                      <p className="mt-3 mb-0" style={{backgroundColor:'transparent'}}>
+                        Ranking ainda não divulgado. Volte em breve!
+                      </p>
+                    </tr>
+                  )}
                 </tbody>
               </Table>
             </Col>
