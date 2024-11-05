@@ -124,10 +124,10 @@ function CriarNovoRegistroRanking () {
           <Nav.Link href="/admin/home">Inscrições</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link href="/admin/ranking">Ranking</Nav.Link>
+          <Nav.Link active disabled>Ranking</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link active disabled>Novo</Nav.Link>
+          <Nav.Link href="/admin/configuracoes">Configurações</Nav.Link>
         </Nav.Item>
       </Nav>
       <Container className="pb-5">

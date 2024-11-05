@@ -115,6 +115,9 @@ function Ranking () {
         <Nav.Item>
           <Nav.Link active disabled>Ranking</Nav.Link>
         </Nav.Item>
+        <Nav.Item>
+          <Nav.Link href="/admin/configuracoes">Configurações</Nav.Link>
+        </Nav.Item>
       </Nav>
       <Container fluid>
         <Row>

@@ -10,6 +10,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 import Form from 'react-bootstrap/Form';
+import Nav from 'react-bootstrap/Nav';
 
 function InscricaoDetalhePage () {
 
@@ -90,6 +91,21 @@ function InscricaoDetalhePage () {
           </Navbar.Collapse>
         </Container>
       </Navbar>
+      <Nav
+        activeKey="/admin/home"
+        variant="tabs"
+        className="mt-3"
+      >
+        <Nav.Item>
+          <Nav.Link active disabled>Inscrições</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link href="/admin/ranking">Ranking</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link href="/admin/configuracoes">Configurações</Nav.Link>
+        </Nav.Item>
+      </Nav>
       <Container className="pb-5">
         <Row>
           <Col>
@@ -222,7 +238,7 @@ function InscricaoDetalhePage () {
                   disabled
                 />
               </Form.Group>
-              <Form.Group className="mb-3" controlId="ja_possuiu_veiculo_porsche">
+              <Form.Group className="mb-4" controlId="ja_possuiu_veiculo_porsche">
                 <Form.Check
                   type="checkbox" 
                   label="Já possuiu veículo da marca Porsche" 
@@ -238,7 +254,7 @@ function InscricaoDetalhePage () {
               >
                 {isLoading ? 'Enviando...' : 'Atualizar'}
               </Button>
-              <Button variant="primary" type="submit" href="/admin/home">
+              <Button variant="outline-primary" type="submit" href="/admin/home">
                 Voltar à lista de Inscrições
               </Button>
             </Form>

@@ -64,6 +64,9 @@ function Home () {
         <Nav.Item>
           <Nav.Link href="/admin/ranking">Ranking</Nav.Link>
         </Nav.Item>
+        <Nav.Item>
+          <Nav.Link href="/admin/configuracoes">Configurações</Nav.Link>
+        </Nav.Item>
       </Nav>
       <Container fluid>
         <Row>

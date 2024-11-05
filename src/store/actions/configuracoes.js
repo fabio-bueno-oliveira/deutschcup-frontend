@@ -12,7 +12,7 @@ function getConfiguracoes() {
   return dispatch => {
     dispatch(request());
 
-    configuracoesService.getRanking()
+    configuracoesService.getConfiguracoes()
       .then(
         list => dispatch(success(list)),
         error => dispatch(failure(error.toString()))

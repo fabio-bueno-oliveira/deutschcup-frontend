@@ -8,6 +8,9 @@ const initialState = {
     {
       id: '',
       funcionalidade: '',
+      titulo: '',
+      subtitulo: '',
+      texto: '',
       status: ''
     }
   ],
@@ -40,6 +43,9 @@ export function configuracoes(state = initialState, action) {
           {
             id: '',
             funcionalidade: '',
+            titulo: '',
+            subtitulo: '',
+            texto: '',
             status: ''
           }
         ]
