@@ -9,7 +9,9 @@ import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import Nav from 'react-bootstrap/Nav';
-import { FaFlagCheckered } from "react-icons/fa";
+import Form from 'react-bootstrap/Form';
+import { FaHourglassHalf } from "react-icons/fa";
+
 
 function Ranking () {
 
@@ -51,6 +53,32 @@ function Ranking () {
             console.error(err)
             alert("Ocorreu um erro ao atualizar a inscrição")
             setIsLoading(false)
+      })
+    }, 300);
+  ;}
+
+  const handleAtualizaSemana = (id, semana, option) => {
+    // setIsLoading(true)
+    setTimeout(() => {
+      fetch('https://deutschcup-a6b22e51057c.herokuapp.com/ranking/atualizaSemana', {
+        method: 'PUT',
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + loggedUser.token
+        },
+        body: JSON.stringify({
+          id: id, 
+          semana: semana,
+          valor: option
+        })
+          }).then((response) => {
+            dispatch(rankingInfos.getRanking());
+            // setIsLoading(false)
+          }).catch(err => {
+            console.error(err)
+            alert("Ocorreu um erro ao atualizar a inscrição")
+            // setIsLoading(false)
       })
     }, 300);
   ;}
@@ -123,24 +151,57 @@ function Ranking () {
                         <th>Etapa</th>
                         <th>Número carro</th>
                         <th>Tempo</th>
-                        <th>Data da corrida</th>
-                        <th>Exibir no ranking?</th>
+                        <th style={{textAlign:'center'}}>Data da corrida</th>
+                        <th style={{textAlign:'center'}}>Exibir na landing</th>
+                        <th style={{textWrap:'nowrap',textAlign:'center'}}>Semana 1</th>
+                        <th style={{textWrap:'nowrap',textAlign:'center'}}>Semana 2</th>
+                        <th style={{textWrap:'nowrap',textAlign:'center'}}>Semana 3</th>
+                        <th>Observações</th>
                       </tr>
                     </thead>
                     <tbody>
                       {rankings?.list.map((ranking, key) => (
                         <tr key={key}>
                           <td style={{color:'gray', cursor:'default', textAlign:'center'}}>{key + 1}</td>
-                          <td>{(key + 1) === 1 && <FaFlagCheckered />} {ranking.nome} {ranking.sobrenome} {`(Apelido '${ranking.apelido}')`} ({ranking.email})</td>
+                          <td>{ranking.nome} {ranking.sobrenome} {`'${ranking.apelido}'`}</td>
                           <td>{ranking.etapa}</td>
                           <td>{ranking.numero_carro}</td>
                           <td>{ranking.tempo}</td>
-                          <td>{ranking.data_formatada}</td>
+                          <td style={{textAlign:'center'}}>{ranking.data_formatada}</td>
+                          <td style={{textAlign:'center'}}>
+                            <Form.Check
+                              checked={ranking.exibir}
+                              type="switch"
+                              id="exibir"
+                              onChange={() => handleToggle(ranking.id, ranking.exibir ? 0 : 1)}
+                            />
+                          </td>
+                          <td style={{textAlign:'center'}}>
+                            <Form.Check
+                              checked={ranking.semana1}
+                              type="checkbox"
+                              id="semana1"
+                              onChange={() => handleAtualizaSemana(ranking.id, 1, ranking.semana1 ? 0 : 1)}
+                            />
+                          </td>
+                          <td style={{textAlign:'center'}}>
+                            <Form.Check
+                              checked={ranking.semana2}
+                              type="checkbox"
+                              id="semana2"
+                              onChange={() => handleAtualizaSemana(ranking.id, 2, ranking.semana2 ? 0 : 1)}
+                            />
+                          </td>
+                          <td style={{textAlign:'center'}}>
+                            <Form.Check
+                              checked={ranking.semana3}
+                              type="checkbox"
+                              id="semana3"
+                              onChange={() => handleAtualizaSemana(ranking.id, 3, ranking.semana3 ? 0 : 1)}
+                            />
+                          </td>
                           <td>
-                            {ranking.exibir ? 
-                              <Button variant="success" size="sm" onClick={() => handleToggle(ranking.id, 0)}>Sim</Button> 
-                              : <Button variant="danger" size="sm" onClick={() => handleToggle(ranking.id, 1)}>Não</Button> 
-                            } 
+                            {ranking.observacoes}
                           </td>
                         </tr>
                       ))}

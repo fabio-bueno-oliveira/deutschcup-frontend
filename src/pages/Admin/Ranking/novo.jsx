@@ -29,7 +29,8 @@ function CriarNovoRegistroRanking () {
     numero_carro: '',
     tempo: '00:02:15.398',
     data: '',
-    exibir: '1'
+    exibir: '1',
+    observacoes: ''
   });
 
   const logout = () => {
@@ -77,7 +78,8 @@ function CriarNovoRegistroRanking () {
           numero_carro: formData.numero_carro,
           tempo: formData.tempo,
           data: formData.data,
-          exibir: 1
+          exibir: 1,
+          observacoes: formData.observacoes
         })
       })
       .then((response) => {
@@ -218,6 +220,18 @@ function CriarNovoRegistroRanking () {
                   />
                 </Form.Group>
               </Row>
+              <Form.Control
+                id="observacoes"
+                as="textarea"
+                placeholder="Observações (opcional)"
+                style={{ height: '60px' }}
+                maxLength={125}
+                className="mb-3" 
+                value={formData.observacoes}
+                onChange={(e) => setFormData({
+                  ...formData, observacoes: e.target.value
+                })}
+              />
               <Button 
                 variant="primary" type="submit" 
                 className="me-2" 

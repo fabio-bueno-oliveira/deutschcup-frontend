@@ -32,6 +32,10 @@ function LandingPage () {
 
   const rankings = useSelector(state => state.rankings);
 
+  const rankingsParaExibicao = rankings?.list.filter(
+    (project) => { return project.exibir === 1 }
+  );
+
   const logout = () => {
     dispatch(userActions.logout());
   }
@@ -92,30 +96,40 @@ function LandingPage () {
                     <th>Nome do Piloto</th>
                     <th>Número do carro</th>
                     <th>Tempo</th>
-                    <th>Data corrida</th>
+                    <th>Data do treino</th>
                   </tr>
                 </thead>
-                <tbody>
-                  {rankings?.list.length ? (
-                    <>
-                      {rankings?.list.map((ranking, key) => (
-                        <tr key={key}>
-                          <td>{key + 1}</td>
-                          <td>{ranking.apelido}</td>
-                          <td>{ranking.numero_carro}</td>
-                          <td>{ranking.tempo}</td>
-                          <td>{ranking.data_formatada}</td>
-                        </tr>
-                      ))}
-                    </>
-                  ): (
+                {rankings.requesting ? (
+                  <tbody>
                     <tr>
                       <p className="mt-3 mb-0" style={{backgroundColor:'transparent'}}>
-                        Ranking ainda não divulgado. Volte em breve!
+                        Carregando...
                       </p>
                     </tr>
-                  )}
-                </tbody>
+                  </tbody>
+                ) : (
+                  <tbody>
+                    {rankingsParaExibicao.length ? (
+                      <>
+                        {rankingsParaExibicao.map((ranking, key) => (
+                          <tr key={key}>
+                            <td>{key + 1}º</td>
+                            <td>{ranking.apelido}</td>
+                            <td>{ranking.numero_carro}</td>
+                            <td>{ranking.tempo}</td>
+                            <td>{ranking.data_formatada}</td>
+                          </tr>
+                        ))}
+                      </>
+                    ): (
+                      <tr>
+                        <p className="mt-3 mb-0" style={{backgroundColor:'transparent'}}>
+                          Ranking ainda não divulgado. Volte em breve!
+                        </p>
+                      </tr>
+                    )}
+                  </tbody>
+                )}
               </Table>
             </Col>
           </Row>
