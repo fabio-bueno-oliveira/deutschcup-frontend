@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { userActions } from '../../store/actions/authentication';
 import { rankingInfos } from '../../store/actions/ranking';
+import { configuracoesInfos } from '../../store/actions/configuracoes';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -28,8 +29,10 @@ function LandingPage () {
 
   useEffect(() => { 
     dispatch(rankingInfos.getRanking());
+    dispatch(configuracoesInfos.getConfiguracoes());
   }, [dispatch]);
 
+  const textos = useSelector(state => state.configuracoes?.list?.[0]);
   const rankings = useSelector(state => state.rankings);
 
   const rankingsParaExibicao = rankings?.list.filter(
@@ -87,18 +90,9 @@ function LandingPage () {
         <Container>
           <Row>
             <Col className='mt-sm-3'>
-              <h3 className='mt-4 mt-sm-2'>Ranking Período de Treinos</h3>
-              <p style={{color:'#c79393'}}>Circuito: Interlagos | Carro: Porsche GT3 RS</p>
+              <h3 className='mt-4 mt-sm-2'>{textos?.titulo}</h3>
+              <p style={{color:'#c79393'}}>{textos?.subtitulo}</p>
               <Table responsive borderless bg="dark" data-bs-theme="dark" size="sm">
-                <thead>
-                  <tr>
-                    <th>Posição</th>
-                    <th>Nome do Piloto</th>
-                    <th>Número do carro</th>
-                    <th>Tempo</th>
-                    <th>Data do treino</th>
-                  </tr>
-                </thead>
                 {rankings.requesting ? (
                   <tbody>
                     <tr>
@@ -108,27 +102,38 @@ function LandingPage () {
                     </tr>
                   </tbody>
                 ) : (
-                  <tbody>
-                    {rankingsParaExibicao.length ? (
-                      <>
-                        {rankingsParaExibicao.map((ranking, key) => (
-                          <tr key={key}>
-                            <td>{key + 1}º</td>
-                            <td>{ranking.apelido}</td>
-                            <td>{ranking.numero_carro}</td>
-                            <td>{ranking.tempo}</td>
-                            <td>{ranking.data_formatada}</td>
-                          </tr>
-                        ))}
-                      </>
-                    ): (
+                  <>
+                    <thead>
                       <tr>
-                        <p className="mt-3 mb-0" style={{backgroundColor:'transparent'}}>
-                          Ranking ainda não divulgado. Volte em breve!
-                        </p>
+                        <th>Posição</th>
+                        <th>Nome do Piloto</th>
+                        <th>Número do carro</th>
+                        <th>Tempo</th>
+                        <th>Data do treino</th>
                       </tr>
-                    )}
-                  </tbody>
+                    </thead>
+                    <tbody>
+                      {rankingsParaExibicao.length ? (
+                        <>
+                          {rankingsParaExibicao.map((ranking, key) => (
+                            <tr key={key}>
+                              <td>{key + 1}º</td>
+                              <td>{ranking.apelido}</td>
+                              <td>{ranking.numero_carro}</td>
+                              <td>{ranking.tempo}</td>
+                              <td>{ranking.data_formatada}</td>
+                            </tr>
+                          ))}
+                        </>
+                      ): (
+                        <tr>
+                          <p className="mt-3 mb-0" style={{backgroundColor:'transparent'}}>
+                            Ranking ainda não divulgado. Volte em breve!
+                          </p>
+                        </tr>
+                      )}
+                    </tbody>
+                  </>
                 )}
               </Table>
             </Col>

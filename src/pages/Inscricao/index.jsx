@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { userActions } from '../../store/actions/authentication';
+import { configuracoesInfos } from '../../store/actions/configuracoes';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -26,6 +27,12 @@ function InscricaoPage () {
       addBodyClass('landingFull')
     }, []
   );
+
+  useEffect(() => { 
+    dispatch(configuracoesInfos.getConfiguracoes());
+  }, [dispatch]);
+
+  const textos = useSelector(state => state.configuracoes?.list?.[1]);
 
   const logout = () => {
     dispatch(userActions.logout());
@@ -145,8 +152,8 @@ function InscricaoPage () {
           <Col>
             <Row>
               <Col md={{ span: 6, offset: 3 }}>
-                <h3>Inscrição</h3>
-                <h6 className='mb-4'>Inscreva-se para a Deutsch Cup</h6>
+                <h3>{textos?.titulo}</h3>
+                <h6 className='mb-4'>{textos?.subtitulo}</h6>
                 <Form noValidate validated={validated} onSubmit={handleSubmit}>
                   <FloatingLabel
                     label="Etapa"

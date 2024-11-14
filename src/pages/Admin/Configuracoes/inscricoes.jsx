@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router';
 import { userActions } from '../../../store/actions/authentication';
 import { configuracoesInfos } from '../../../store/actions/configuracoes';
 import Container from 'react-bootstrap/Container';
@@ -13,37 +12,39 @@ import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Card from 'react-bootstrap/Card';
 
-function ConfiguracoesPage () {
+function ConfiguracoesInscricoesPage () {
 
   const loggedUser = JSON.parse(localStorage.getItem('user'));
   const dispatch = useDispatch();
-  const params = useParams();
-  const inscricaoId = params?.inscricaoId;
-  const loading = useSelector(state => state.inscricoes.requesting);
   document.title = `Configurações - Deutsch Cup 2024`;
+
+  const configuracoes = useSelector(state => state.configuracoes);
+  const inscricoes = useSelector(state => state.configuracoes?.list?.[1]);
+
+  const [formData, setFormData] = useState({
+    titulo: '',
+    subtitulo: '',
+    text: '',
+  });
 
   useEffect(() => { 
     dispatch(configuracoesInfos.getConfiguracoes());
+    setFormData({
+      titulo: inscricoes?.titulo,
+      subtitulo: inscricoes?.subtitulo,
+      texto: "",
+    })
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [inscricaoId]);
-
-  const configuracoes = useSelector(state => state.configuracoes);
-  const ranking = useSelector(state => state.configuracoes?.list?.[0]);
-  const inscricao = useSelector(state => state.configuracoes?.list?.[1]);
+  }, [inscricoes?.id]);
 
   const logout = () => {
     dispatch(userActions.logout());
   }
 
-  const [formData, setFormData] = useState({
-    apelido: '',
-    tamanho_camiseta: '2024'
-  });
-
   const [isLoading, setIsLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e, id) => {
     e.preventDefault();
     setSuccess(false)
     setIsLoading(true)
@@ -56,20 +57,21 @@ function ConfiguracoesPage () {
           'Authorization': 'Bearer ' + loggedUser.token
         },
         body: JSON.stringify({
-          id: inscricaoId, 
-          apelido: formData.apelido, 
-          tamanho_camiseta: formData.tamanho_camiseta
+          id: id, 
+          titulo: formData.titulo, 
+          subtitulo: formData.subtitulo, 
+          texto: ""
         })
           }).then((response) => {
-            console.log(response)
-            // dispatch(inscricoesInfos.getInscricaoDetalhe(inscricaoId));
-            setIsLoading(false)
-            setSuccess(true)
+              console.log(response)
+              dispatch(configuracoesInfos.getConfiguracoes());
+              setIsLoading(false)
+              setSuccess(true)
           }).catch(err => {
-            console.error(err)
-            alert("Ocorreu um erro ao atualizar a inscrição")
-            setIsLoading(false)
-            setSuccess(false)
+              console.error(err)
+              alert("Ocorreu um erro ao atualizar a inscrição")
+              setIsLoading(false)
+              setSuccess(false)
       })
     }, 300);
   ;}
@@ -110,10 +112,21 @@ function ConfiguracoesPage () {
           <Nav.Link active disabled>Configurações</Nav.Link>
         </Nav.Item>
       </Nav>
+      <Nav style={{fontSize:'14px'}}>
+        <Nav.Item>
+          <Nav.Link href="/admin/configuracoes/">Ranking</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link disabled>Inscrição</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link href="/admin/configuracoes/sobre">Sobre o evento</Nav.Link>
+        </Nav.Item>
+      </Nav>
       <Container className="pb-5">
         <Row>
-          <Col md={{ span: 6, offset: 3 }}>
-            <h4 className="my-4">Configurações {configuracoes.requesting && "(Carregando...)" }</h4>
+          <Col md={{ span: 10, offset: 1 }}>
+            <h4 className="mb-3 mt-3">Textos da página de Inscrições {configuracoes.requesting && "(Carregando...)" }</h4>
             {success && 
               <Alert variant='success'>
                 Informação atualizada com sucesso!
@@ -121,68 +134,35 @@ function ConfiguracoesPage () {
             }
             <Card>
               <Card.Body>
-                <Card.Title>Ranking</Card.Title>
-                <Card.Subtitle className="mb-2 text-muted">
-                  Textos da funcionalidade de Ranking na landing Page
-                </Card.Subtitle>
                 <Form.Group controlId="titulo">
                   <Form.Label>Título</Form.Label>
                   <Form.Control 
                     type="text"
-                    value={ranking?.titulo}
-                    disabled
+                    defaultValue={inscricoes?.titulo}
+                    disabled={isLoading || configuracoes.requesting}
+                    onChange={(e) => setFormData({...formData, titulo: e.target.value})}
                   />
                 </Form.Group>
                 <Form.Group controlId="subtitulo">
                   <Form.Label>Subtítulo</Form.Label>
                   <Form.Control 
                     type="text"
-                    value={ranking?.subtitulo}
-                    disabled
+                    defaultValue={inscricoes?.subtitulo}
+                    disabled={isLoading || configuracoes.requesting}
+                    onChange={(e) => setFormData(
+                      {...formData, subtitulo: e.target.value}
+                    )}
                   />
                 </Form.Group>
-                {/* <Button 
-                  variant="primary" type="submit" 
+                <Button 
+                  variant="primary"
                   className="mt-3" 
                   disabled={isLoading}
-                  onClick={(e) => handleSubmit(e)}
+                  onClick={(e) => handleSubmit(e, 2)}
                   size="sm"
                 >
                   {isLoading ? 'Enviando...' : 'Atualizar'}
-                </Button> */}
-              </Card.Body>
-            </Card>
-            <Card className="mt-4">
-              <Card.Body>
-                <Card.Title>Formulário de Inscrição</Card.Title>
-                <Card.Subtitle className="mb-2 text-muted">
-                  Textos da funcionalidade de Formulário na landing Page
-                </Card.Subtitle>
-                <Form.Group controlId="titulo">
-                  <Form.Label>Título</Form.Label>
-                  <Form.Control 
-                    type="text"
-                    value={inscricao?.titulo}
-                    disabled
-                  />
-                </Form.Group>
-                <Form.Group controlId="subtitulo">
-                  <Form.Label>Subtítulo</Form.Label>
-                  <Form.Control 
-                    type="text"
-                    value={inscricao?.subtitulo}
-                    disabled
-                  />
-                </Form.Group>
-                {/* <Button 
-                  variant="primary" type="submit" 
-                  className="mt-3" 
-                  disabled={isLoading}
-                  onClick={(e) => handleSubmit(e)}
-                  size="sm"
-                >
-                  {isLoading ? 'Enviando...' : 'Atualizar'}
-                </Button> */}
+                </Button>
               </Card.Body>
             </Card>
           </Col>
@@ -192,4 +172,4 @@ function ConfiguracoesPage () {
   );
 };
 
-export default ConfiguracoesPage;
+export default ConfiguracoesInscricoesPage;

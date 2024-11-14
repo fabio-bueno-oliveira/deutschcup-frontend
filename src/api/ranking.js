@@ -15,6 +15,7 @@ export function authHeader() {
 
 export const rankingService = {
   getRanking,
+  getRankingDetalhe,
   logout
 };
 
@@ -24,6 +25,14 @@ function getRanking() {
     headers: authHeader()
   };
   return fetch(`${BASE_URL}/ranking`, requestOptions).then(handleResponse);
+}
+
+function getRankingDetalhe(rankingId) {
+  const requestOptions = {
+    method: 'GET',
+    headers: authHeader()
+  };
+  return fetch(`${BASE_URL}/ranking/${rankingId}`, requestOptions).then(handleResponse);
 }
 
 function logout() {

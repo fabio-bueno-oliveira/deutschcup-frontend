@@ -18,6 +18,23 @@ const initialState = {
       apelido: '',
     }
   ],
+  registro: {
+    id: '',
+    modifiedAt: '',
+    id_inscrito: '',
+    posicao: '',
+    numero_carro: '',
+    tempo: '',
+    data: '',
+    etapa: '',
+    semana1: '',
+    semana2: '',
+    semana3: '',
+    exibir: '',
+    observacoes: '',
+    nome: '',
+    sobrenome: ''
+  }
 }
 
 export function rankings(state = initialState, action) {
@@ -57,6 +74,45 @@ export function rankings(state = initialState, action) {
             apelido: '',
           }
         ]
+      };
+    case rankingTypes.GET_RANKING_REQUEST:
+      return {
+        ...state,
+        requesting: true,
+        success: false,
+        error: ''
+      };
+    case rankingTypes.GET_RANKING_SUCCESS:
+      return {
+        ...state,
+        requesting: false,
+        success: true,
+        error: '',
+        registro: action.info
+      };
+    case rankingTypes.GET_RANKING_FAILURE:
+      return {
+        ...state,
+        requesting: false,
+        success: false,
+        error: 'Erro na solicitação',
+        registro: {
+          id: '',
+          modifiedAt: '',
+          id_inscrito: '',
+          posicao: '',
+          numero_carro: '',
+          tempo: '',
+          data: '',
+          etapa: '',
+          semana1: '',
+          semana2: '',
+          semana3: '',
+          exibir: '',
+          observacoes: '',
+          nome: '',
+          sobrenome: ''
+        }
       };
     default:
       return state

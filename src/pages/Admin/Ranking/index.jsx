@@ -160,13 +160,14 @@ function Ranking () {
                         <th style={{textWrap:'nowrap',textAlign:'center'}}>Semana 2</th>
                         <th style={{textWrap:'nowrap',textAlign:'center'}}>Semana 3</th>
                         <th>Observações</th>
+                        <th></th>
                       </tr>
                     </thead>
                     <tbody>
                       {rankings?.list.map((ranking, key) => (
                         <tr key={key}>
                           <td style={{color:'gray', cursor:'default', textAlign:'center'}}>{key + 1}</td>
-                          <td>{ranking.nome} {ranking.sobrenome} {`'${ranking.apelido}'`}</td>
+                          <td><a href={`/admin/ranking/${ranking.id}`}>{ranking.nome} {ranking.sobrenome} {ranking.apelido && `'${ranking.apelido}'`}</a></td>
                           <td>{ranking.etapa}</td>
                           <td>{ranking.numero_carro}</td>
                           <td>{ranking.tempo}</td>
@@ -206,6 +207,7 @@ function Ranking () {
                           <td>
                             {ranking.observacoes}
                           </td>
+                          <td><a href={`/admin/ranking/${ranking.id}`}>Editar</a></td>
                         </tr>
                       ))}
                     </tbody>
