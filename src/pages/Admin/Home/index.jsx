@@ -89,7 +89,7 @@ function Home () {
                   >
                     <thead>
                       <tr>
-                        <th></th>
+                        {/* <th></th> */}
                         <th>ID Inscrição</th>
                         <th>Nome</th>
                         <th>Data envio inscrição</th>
@@ -110,7 +110,7 @@ function Home () {
                     <tbody>
                       {inscricoes?.list.map((inscrito, key) => (
                         <tr key={key}>
-                          <td style={{color:'gray', cursor:'default'}}>{key + 1}</td>
+                          {/* <td style={{color:'gray', cursor:'default'}}>{key + 1}</td> */}
                           <td>{inscrito.id}</td>
                           <td><a href={`/admin/inscricao/${inscrito.id}`}>{inscrito.nome} {inscrito.sobrenome}</a></td>
                           <td>{inscrito.createdAt}</td>

@@ -22,27 +22,38 @@ function InscricaoDetalhePage () {
   const inscricao = useSelector(state => state.inscricoes.inscricao);
   document.title = `Inscrição #${inscricaoId} - ${inscricao.nome} ${inscricao.sobrenome} - Deutsch Cup 2024`;
 
-  useEffect(() => { 
+  const [formData, setFormData] = useState({
+    nome: inscricao.nome,
+    sobrenome: inscricao.sobrenome,
+    apelido: inscricao.apelido,
+    tamanho_camiseta: inscricao.tamanho_camiseta
+  });
+
+  useEffect(() => {
     dispatch(inscricoesInfos.getInscricaoDetalhe(inscricaoId));
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inscricaoId]);
 
+  useEffect(() => {
+    setFormData({
+      nome: inscricao.nome,
+      sobrenome: inscricao.sobrenome,
+      apelido: inscricao.apelido,
+      tamanho_camiseta: inscricao.tamanho_camiseta
+    });
+  }, [inscricao.id]);
+
   const logout = () => {
     dispatch(userActions.logout());
   }
-
-  const [formData, setFormData] = useState({
-    apelido: '',
-    tamanho_camiseta: '2024'
-  });
 
   const [isLoading, setIsLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSuccess(false)
-    setIsLoading(true)
+    setSuccess(false);
+    setIsLoading(true);
     setTimeout(() => {
       fetch('https://deutschcup-a6b22e51057c.herokuapp.com/inscricao/atualizar', {
         method: 'PUT',
@@ -52,20 +63,22 @@ function InscricaoDetalhePage () {
           'Authorization': 'Bearer ' + loggedUser.token
         },
         body: JSON.stringify({
-          id: inscricaoId, 
-          apelido: formData.apelido, 
+          id: inscricaoId,
+          nome: formData.nome,
+          sobrenome: formData.sobrenome,
+          apelido: formData.apelido,
           tamanho_camiseta: formData.tamanho_camiseta
         })
           }).then((response) => {
-            console.log(response)
+            console.log(response);
             dispatch(inscricoesInfos.getInscricaoDetalhe(inscricaoId));
-            setIsLoading(false)
-            setSuccess(true)
+            setIsLoading(false);
+            setSuccess(true);
           }).catch(err => {
             console.error(err)
-            alert("Ocorreu um erro ao atualizar a inscrição")
-            setIsLoading(false)
-            setSuccess(false)
+            alert("Ocorreu um erro ao atualizar a inscrição");
+            setIsLoading(false);
+            setSuccess(false);
       })
     }, 300);
   ;}
@@ -74,7 +87,7 @@ function InscricaoDetalhePage () {
     <>
       <Navbar className="bg-body-tertiary">
         <Container fluid>
-          <Navbar.Brand href="/admin/home">DS Cup 2024</Navbar.Brand>
+          <Navbar.Brand href="/admin/home">DS Cup</Navbar.Brand>
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
             <Navbar.Text>
@@ -141,17 +154,18 @@ function InscricaoDetalhePage () {
                   <Form.Label>Nome</Form.Label>
                   <Form.Control 
                     type="text"
-                    value={inscricao.nome} 
-                    readOnly
-                    disabled
+                    defaultValue={inscricao.nome} 
+                    onChange={(e) => setFormData({...formData, nome: e.target.value})}
+                    disabled={loading}
                   />
                 </Form.Group>
                 <Form.Group as={Col} controlId="sobrenome">
                   <Form.Label>Sobrenome</Form.Label>
                   <Form.Control 
                     type="text"
-                    value={inscricao.sobrenome} 
-                    disabled
+                    defaultValue={inscricao.sobrenome} 
+                    onChange={(e) => setFormData({...formData, sobrenome: e.target.value})}
+                    disabled={loading}
                   />
                 </Form.Group>
               </Row>
@@ -169,7 +183,7 @@ function InscricaoDetalhePage () {
                   <Form.Label>Tamanho camiseta</Form.Label>
                   <Form.Select 
                     id="tamanho_camiseta"
-                    value={inscricao.tamanho_camiseta} 
+                    defaultValue={inscricao.tamanho_camiseta} 
                     onChange={(e) => setFormData({
                       ...formData, 
                       tamanho_camiseta: e.target.options[e.target.selectedIndex].value
