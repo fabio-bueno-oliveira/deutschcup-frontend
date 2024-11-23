@@ -27,6 +27,7 @@ const initialState = {
     tempo: '',
     data: '',
     etapa: '',
+    final: '',
     semana1: '',
     semana2: '',
     semana3: '',

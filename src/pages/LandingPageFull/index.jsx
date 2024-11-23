@@ -36,7 +36,7 @@ function LandingPage () {
   const rankings = useSelector(state => state.rankings);
 
   const rankingsParaExibicao = rankings?.list.filter(
-    (project) => { return project.exibir === 1 }
+    (ranking) => { return ranking.exibir === 1 && ranking.final }
   );
 
   const logout = () => {
@@ -128,7 +128,7 @@ function LandingPage () {
                       ): (
                         <tr>
                           <p className="mt-3 mb-0" style={{backgroundColor:'transparent'}}>
-                            Ranking ainda não divulgado. Volte em breve!
+                            Ranking em atualização! Volte em breve!
                           </p>
                         </tr>
                       )}

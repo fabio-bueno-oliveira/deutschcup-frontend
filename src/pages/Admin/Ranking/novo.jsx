@@ -24,6 +24,7 @@ function CriarNovoRegistroRanking () {
 
   const [formData, setFormData] = useState({
     etapa: '',
+    final: 0,
     id_inscrito: '',
     // posicao: 1,
     numero_carro: '',
@@ -73,6 +74,7 @@ function CriarNovoRegistroRanking () {
         },
         body: JSON.stringify({
           etapa: formData.etapa,
+          final: formData.final ? 1 : 0,
           id_inscrito: formData.id_inscrito,
           // posicao: formData.posicao,
           numero_carro: formData.numero_carro,
@@ -94,6 +96,8 @@ function CriarNovoRegistroRanking () {
       })
     }
   }
+
+  console.log(100, formData)
 
   return (
     <>
@@ -145,7 +149,7 @@ function CriarNovoRegistroRanking () {
               <Row className="mb-2">
                 {/* <input type="time" step="0.001"></input>
                 <input id="test" type="datetime-local" step="0.001"></input> */}
-                <Form.Group controlId="etapa" className="mb-3">
+                <Form.Group controlId="etapa" className="mb-2">
                   <Form.Select  
                     required
                     onChange={(e) => setFormData({
@@ -157,6 +161,13 @@ function CriarNovoRegistroRanking () {
                     <option value="Novembro 2024">Novembro 2024</option>
                     <option value="Fevereiro 2025">Fevereiro 2025</option>
                   </Form.Select>
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="final">
+                  <Form.Check
+                    type='checkbox'
+                    label={`Corrida final (Fast Lap Challenge)?`}
+                    onChange={(e) => setFormData({...formData, final: e.target.checked})}
+                  />
                 </Form.Group>
                 <Form.Group controlId="id_inscrito" className="mb-3">
                   <Form.Select 

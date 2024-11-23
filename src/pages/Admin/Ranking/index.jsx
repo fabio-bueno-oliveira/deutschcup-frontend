@@ -12,7 +12,6 @@ import Nav from 'react-bootstrap/Nav';
 import Form from 'react-bootstrap/Form';
 import { FaHourglassHalf } from "react-icons/fa";
 
-
 function Ranking () {
 
   document.title = 'Ranking - Deutsch Cup';
@@ -27,9 +26,18 @@ function Ranking () {
     dispatch(userActions.logout());
   }
 
+  const [isLoading, setIsLoading] = useState(false);
+  const [exibeTreinos, setExibeTreinos] = useState(true);
+
   const rankings = useSelector(state => state.rankings);
 
-  const [isLoading, setIsLoading] = useState(false);
+  const rankingsParaExibicao = 
+  exibeTreinos ? 
+    rankings.list
+  :
+    rankings?.list?.filter(
+      (ranking) => { return ranking.final === 1 }
+    )
 
   const handleToggle = (id, option) => {
     setIsLoading(true)
@@ -131,6 +139,14 @@ function Ranking () {
             >
               Registrar novo
             </Button>
+            <Button 
+              className="mb-4 ms-2" 
+              variant={exibeTreinos ? "primary" : "secondary"}  
+              size="sm"
+              onClick={() => setExibeTreinos(value => !value)}
+            >
+              Exibir Treinos
+            </Button>
             {/* <input type="time" step="0.001"></input>
             <input id="test" type="datetime-local" step="0.001"></input> */}
             {rankings.requesting || isLoading ? (
@@ -152,6 +168,7 @@ function Ranking () {
                         <th style={{textAlign:'center'}}>Posição no Ranking</th>
                         <th>Nome</th>
                         <th>Etapa</th>
+                        <th>Final (Fast Lap Challenge)</th>
                         <th>Número carro</th>
                         <th>Tempo</th>
                         <th style={{textAlign:'center'}}>Data da corrida</th>
@@ -164,11 +181,12 @@ function Ranking () {
                       </tr>
                     </thead>
                     <tbody>
-                      {rankings?.list.map((ranking, key) => (
+                      {rankingsParaExibicao?.map((ranking, key) => (
                         <tr key={key}>
                           <td style={{color:'gray', cursor:'default', textAlign:'center'}}>{key + 1}</td>
                           <td><a href={`/admin/ranking/${ranking.id}`}>{ranking.nome} {ranking.sobrenome} {ranking.apelido && `'${ranking.apelido}'`}</a></td>
                           <td>{ranking.etapa}</td>
+                          <td>{ranking.final ? "Sim" : "Não"}</td>
                           <td>{ranking.numero_carro}</td>
                           <td>{ranking.tempo}</td>
                           <td style={{textAlign:'center'}}>{ranking.data_formatada}</td>
